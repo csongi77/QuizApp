@@ -9,9 +9,11 @@ public class Answer implements AnswerOption {
     private String answerText;
     private boolean rightAnswer;
 
-    // Ctor
-
-
+    /**
+     * Ctor
+     * @param answerText String that must be shown. In case STRING_QUESTION this is the right answer
+     * @param rightAnswer true if this is the right answer, else false
+     */
     public Answer(String answerText, boolean rightAnswer) {
         this.answerText = answerText;
         this.rightAnswer = rightAnswer;
