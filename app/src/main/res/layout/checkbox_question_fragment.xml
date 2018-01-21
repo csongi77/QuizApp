@@ -23,27 +23,27 @@
             tools:text="Test question about question" />
 
         <CheckBox
-            android:id="@+id/checkbox_anwer_option_0"
+            android:id="@+id/checkbox_answer_option_0"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Checkbox answer option 0" />
 
         <CheckBox
-            android:id="@+id/checkbox_anwer_option_1"
+            android:id="@+id/checkbox_answer_option_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Checkbox answer option 0" />
+            tools:text="Checkbox answer option 1" />
 
         <CheckBox
-            android:id="@+id/checkbox_anwer_option_2"
+            android:id="@+id/checkbox_answer_option_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Checkbox answer option 0" />
+            tools:text="Checkbox answer option 2" />
 
         <CheckBox
-            android:id="@+id/checkbox_anwer_option_3"
+            android:id="@+id/checkbox_answer_option_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Checkbox answer option 0" />
+            tools:text="Checkbox answer option 3" />
     </LinearLayout>
 </ScrollView>
