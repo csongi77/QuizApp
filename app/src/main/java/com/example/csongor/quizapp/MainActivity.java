@@ -13,38 +13,38 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    //game states
+    public static final int IN_GAME_STATE=0;
+    public static final int UNDO_STATE=1;
+    public static final int UNDO_STACK_IS_EMPTY_STATE=2;
+    public static final int REDO_STATE=3;
+    public static final int LAST_QUESTION_STATE=4;
+    public static final int EVALUATION_STATE=5;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private int gameState;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
     }
 
+    //get current gameState
+    public int getGameState() {
+        return gameState;
+    }
+
+    //set new gameState
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+    }
 
     /**
      *  dummy List with quiz questions. Later it will delegated into quiz question list factory
