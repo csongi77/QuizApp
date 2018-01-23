@@ -45,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         questions = getQuizQuestions();
         questionIterator = questions.iterator();
         fragmentManager = MainActivity.this.getSupportFragmentManager();
-
+        fragment=new WelcomeFragment();
+        // show welcome string
+        fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).commit();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         rightButton = (TextView) findViewById(R.id.right_button);
         leftButton = (TextView) findViewById(R.id.left_button);
         // loading fist question
-        doit();
+       // doit();
         // setting up listener for the next question button
         rightButton.setOnClickListener(v -> {
             Log.e("Main/ onStart", "------------CLICKED------------");
