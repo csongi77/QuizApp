@@ -10,31 +10,37 @@
         android:orientation="vertical"
         android:focusedByDefault="true"
         >
-
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/string_question_image_container"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:scaleType="centerCrop"
             tools:src="@drawable/ic_home_black_24dp" />
 
 
         <TextView
             android:id="@+id/string_question_text"
+            android:layout_alignBottom="@id/string_question_image_container"
             style="@style/Base.TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             tools:text="Test question about question" />
-
+        </RelativeLayout>
         <EditText
             android:id="@+id/player_string_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="46dp"
             android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="46dp"
             android:ellipsize="end"
             android:focusedByDefault="true"
             android:hint="Your Answer"

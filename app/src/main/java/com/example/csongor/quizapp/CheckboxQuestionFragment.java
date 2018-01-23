@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -99,6 +100,8 @@ public class CheckboxQuestionFragment extends Fragment {
         rootView.clearFocus();
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
+        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.checkbox_question_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         Log.e("CheckboxQFragment", " fragment onCreateView executed ---->");
         return rootView;
     }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -100,6 +101,8 @@ public class RadioQuestionFragment extends Fragment {
         Log.e("RadioQuestionFragment", " fragment onCreateView executed ---->");
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
+        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.radio_question_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
     }
 
@@ -124,5 +127,7 @@ public class RadioQuestionFragment extends Fragment {
         rootView = null;
         Log.e("RadioQFragment", " fragment onPause executed ---->");
     }
+
+
 
 }

@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
 
     // After finishing game the activity displays the result
     private void evaluate() {
-
         Toast.makeText(this, "Your points: " + this.gamePoints, Toast.LENGTH_SHORT).show();
     }
 
@@ -123,6 +122,15 @@ public class MainActivity extends AppCompatActivity {
         this.gameState = gameState;
     }
 
+    // get player name
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    // set player name
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 
     /**
      * @param value to add this amount to game points
