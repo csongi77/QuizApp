@@ -4,13 +4,12 @@
     android:id="@+id/string_question_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:focusedByDefault="true"
+        >
 
         <ImageView
             android:id="@+id/string_question_image_container"
@@ -21,7 +20,6 @@
 
 
         <TextView
-            android:layout_alignBottom="@+id/string_question_image_container"
             android:id="@+id/string_question_text"
             style="@style/Base.TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
@@ -46,5 +44,4 @@
             android:maxLines="1"
             android:paddingVertical="10dp" />
     </LinearLayout>
-    </RelativeLayout>
 </ScrollView>
