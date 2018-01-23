@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -95,6 +96,9 @@ public class CheckboxQuestionFragment extends Fragment {
             checkBoxes.get(i).setText(((Question) question).getAnswerOptions().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
+        rootView.clearFocus();
+        InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
         Log.e("CheckboxQFragment", " fragment onCreateView executed ---->");
         return rootView;
     }

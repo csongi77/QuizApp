@@ -4,7 +4,9 @@
     android:id="@+id/string_question_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,25 +16,35 @@
             android:id="@+id/string_question_image_container"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:scaleType="centerCrop"
             tools:src="@drawable/ic_home_black_24dp" />
 
+
         <TextView
+            android:layout_alignBottom="@+id/string_question_image_container"
             android:id="@+id/string_question_text"
-            style="@style/Base.TextAppearance.AppCompat.Title"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
             tools:text="Test question about question" />
 
         <EditText
             android:id="@+id/player_string_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="46dp"
+            android:layout_marginHorizontal="16dp"
             android:ellipsize="end"
-            android:lines="1"
+            android:focusedByDefault="true"
             android:hint="Your Answer"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:maxLines="1" />
+            android:lines="1"
+            android:maxLines="1"
+            android:paddingVertical="10dp" />
     </LinearLayout>
-
+    </RelativeLayout>
 </ScrollView>

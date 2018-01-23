@@ -14,6 +14,7 @@
             android:id="@+id/radio_question_image_container"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:scaleType="centerCrop"
             tools:src="@drawable/ic_home_black_24dp" />
 
         <TextView
@@ -21,7 +22,9 @@
             style="@style/Base.TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Test question about question" />
+            android:background="@color/colorPrimary"
+            android:padding="16dp"
+            tools:text="Test question about question"  />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -32,24 +35,41 @@
                 android:id="@+id/radio_answer_option_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:paddingVertical="10dp"
                 tools:text="Radio button answer option 0" />
 
             <RadioButton
                 android:id="@+id/radio_answer_option_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
+                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:paddingVertical="10dp"
                 tools:text="Radio button answer option 1" />
 
             <RadioButton
                 android:id="@+id/radio_answer_option_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
+                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:paddingVertical="10dp"
                 tools:text="Radio button answer option 2" />
 
             <RadioButton
                 android:id="@+id/radio_answer_option_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
+                android:paddingHorizontal="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:paddingVertical="10dp"
                 tools:text="Radio button answer option 3" />
         </RadioGroup>
     </LinearLayout>

@@ -14,7 +14,7 @@ public class Question implements QuizQuestion {
 
     private int questionType, imageResourceId;
     private String question;
-    private ArrayList<AnswerOption> answerOptions;
+    private List<AnswerOption> answerOptions;
 
 
     /**
@@ -25,7 +25,7 @@ public class Question implements QuizQuestion {
      *                        2: The list has 4 AnswerOption with 1 rightAnswer -> RADIO_QUESTION
      *                        3: The list has 4 AnswerOption with multiple rightAnswer -> CHECKBOX_QUESTION
      */
-    public Question(int imageResourceId, String question, ArrayList<AnswerOption> answerOptions) {
+    public Question(int imageResourceId, String question, List<AnswerOption> answerOptions) {
         this.imageResourceId = imageResourceId;
         this.question = question;
         this.answerOptions = answerOptions;
@@ -70,7 +70,7 @@ public class Question implements QuizQuestion {
     /**
      * @return the list of AnswerOptions.In STRING_QUESTION type this string is the right answer
      */
-    public ArrayList<AnswerOption> getAnswerOptions() {
+    public List<AnswerOption> getAnswerOptions() {
         return answerOptions;
     }
 

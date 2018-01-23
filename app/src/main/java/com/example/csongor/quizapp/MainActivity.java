@@ -1,5 +1,6 @@
 package com.example.csongor.quizapp;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -22,22 +23,28 @@ public class MainActivity extends AppCompatActivity {
     public static final int LAST_QUESTION_STATE = 4;
     public static final int EVALUATION_STATE = 5;
 
+    // variable fields
     private int gameState;
     private int gamePoints;
     private android.support.v4.app.FragmentManager fragmentManager;
     private android.support.v4.app.FragmentTransaction transaction;
-    private TextView rightButton;
+    private TextView rightButton, leftButton;
     private List<QuizQuestion> questions;
     private Iterator<QuizQuestion> questionIterator;
+    Fragment fragment;
+    private String playerName;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // set up default game state
+        gameState = IN_GAME_STATE;
+        // loading question list and the iterator for it
         questions = getQuizQuestions();
         questionIterator = questions.iterator();
-
+        fragmentManager = MainActivity.this.getSupportFragmentManager();
 
     }
 
@@ -45,18 +52,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         rightButton = (TextView) findViewById(R.id.right_button);
-        rightButton.setOnClickListener(v -> {Log.e("Main/ onStart","------------CLICKED------------");doit();});
+        leftButton = (TextView) findViewById(R.id.left_button);
+        // loading fist question
+        doit();
+        // setting up listener for the next question button
+        rightButton.setOnClickListener(v -> {
+            Log.e("Main/ onStart", "------------CLICKED------------");
+            doit();
+        });
     }
 
+    // method for creating fragments for the questions
     private void doit() {
-
-        if (questionIterator.hasNext()) {
-            fragmentManager = MainActivity.this.getSupportFragmentManager();
+        if (this.gameState != LAST_QUESTION_STATE) {
             transaction = fragmentManager.beginTransaction();
-            Fragment fragment;
             Question question;
-            question = (Question)questionIterator.next();
+            //get the next question
+            question = (Question) questionIterator.next();
             Log.e("mainActivity: ", "the question type is: " + question.getQuestionType());
+            // depending the question type the appropriate fragment will be used.
+            // development suggestion: make this using Chain of Responsibility pattern to avoid multiple if statements
             if (question.getQuestionType() == QuizQuestion.STRING_QUESTION) {
                 fragment = StringQuestionFragment.newInstance(question);
                 Log.e("mainActivity: ", "stringQuestion fragment has instantinated: ");
@@ -69,20 +84,32 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 fragment = new Fragment();
             }
-
-
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack
+            // Replace whatever is in the fragment_container view with this fragment
             transaction.replace(R.id.fragment_container, fragment);
+            // add the transaction to the back stack if you want to step back to previous question.
+            // this is depending on game type. If later you want to develop undo option, this would be
+            // the entry point
             //transaction.addToBackStack(null);
             transaction.commit();
-        } else {
-            MainActivity.this.evaluate();
+
+        }
+        // change state if there are no more questions
+        if (!questionIterator.hasNext()) {
+            setGameState(LAST_QUESTION_STATE);
+            rightButton.setClickable(false);
+            rightButton.setTextColor(getResources().getColor(R.color.inactiveButton));
+            leftButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+            leftButton.setClickable(true);
+            leftButton.setOnClickListener(v -> {
+                fragmentManager.beginTransaction().detach(fragment).commitNow();
+                evaluate();
+            });
         }
     }
 
     // After finishing game the activity displays the result
     private void evaluate() {
+
         Toast.makeText(this, "Your points: " + this.gamePoints, Toast.LENGTH_SHORT).show();
     }
 
@@ -107,21 +134,22 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * dummy List with quiz questions. Later it will delegated into quiz question list factory
+     * Maybe a Content provider could do this.
      */
-    private ArrayList<QuizQuestion> getQuizQuestions() {
+    private List<QuizQuestion> getQuizQuestions() {
         //creating quiz question list
-        ArrayList<QuizQuestion> questionList = new ArrayList<QuizQuestion>();
+        List<QuizQuestion> questionList = new ArrayList<QuizQuestion>();
 
         // first question (String question)
         AnswerOption answerOption_1_1 = new Answer("Edward Whymper", true);
-        ArrayList<AnswerOption> answerOptions_1 = new ArrayList<AnswerOption>();
+        List<AnswerOption> answerOptions_1 = new ArrayList<AnswerOption>();
         answerOptions_1.add(answerOption_1_1);
         QuizQuestion question_1 = new Question(R.drawable.matterhorn, "Who climbed first the Matterhorn?", answerOptions_1);
 
 
         // first.A question (String question)
         AnswerOption answerOption_1a_1 = new Answer("Reinhold Messner", true);
-        ArrayList<AnswerOption> answerOptions_1a = new ArrayList<AnswerOption>();
+        List<AnswerOption> answerOptions_1a = new ArrayList<AnswerOption>();
         answerOptions_1a.add(answerOption_1a_1);
         QuizQuestion question_1a = new Question(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without support oxygen?", answerOptions_1a);
 
@@ -130,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         AnswerOption answerOption_2_2 = new Answer("El Jefe", false);
         AnswerOption answerOption_2_3 = new Answer("The Captain", false);
         AnswerOption answerOption_2_4 = new Answer("The Boss", false);
-        ArrayList<AnswerOption> answerOptions_2 = new ArrayList<AnswerOption>();
+        List<AnswerOption> answerOptions_2 = new ArrayList<AnswerOption>();
         answerOptions_2.add(answerOption_2_1);
         answerOptions_2.add(answerOption_2_2);
         answerOptions_2.add(answerOption_2_3);
@@ -143,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         AnswerOption answerOption_3_2 = new Answer("Hermann Buhl", false);
         AnswerOption answerOption_3_3 = new Answer("Sir Edmund Hillary", true);
         AnswerOption answerOption_3_4 = new Answer("Reinhold Messner", false);
-        ArrayList<AnswerOption> answerOptions_3 = new ArrayList<AnswerOption>();
+        List<AnswerOption> answerOptions_3 = new ArrayList<AnswerOption>();
         answerOptions_3.add(answerOption_3_1);
         answerOptions_3.add(answerOption_3_2);
         answerOptions_3.add(answerOption_3_3);
@@ -155,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         AnswerOption answerOption_3a_2 = new Answer("Tenzing Norgay", true);
         AnswerOption answerOption_3a_3 = new Answer("Sir Edmund Hillary", true);
         AnswerOption answerOption_3a_4 = new Answer("Reinhold Messner", false);
-        ArrayList<AnswerOption> answerOptions_3a = new ArrayList<AnswerOption>();
+        List<AnswerOption> answerOptions_3a = new ArrayList<AnswerOption>();
         answerOptions_3a.add(answerOption_3a_1);
         answerOptions_3a.add(answerOption_3a_2);
         answerOptions_3a.add(answerOption_3a_3);
@@ -164,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
 
         //fourth question
         AnswerOption answerOption_4_1 = new Answer("Reinhold Messner", true);
-        ArrayList<AnswerOption> answerOptions_4 = new ArrayList<AnswerOption>();
+        List<AnswerOption> answerOptions_4 = new ArrayList<AnswerOption>();
         answerOptions_1.add(answerOption_4_1);
         QuizQuestion question_4 = new Question(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without additional oxygen?", answerOptions_4);
 
@@ -174,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         questionList.add(question_3);
         //questionList.add(question_3a);
         questionList.add(question_2);
-       // questionList.add(question_4);
+        // questionList.add(question_4);
 
         for (int i = 0; i < questionList.size(); i++) {
             Log.e("main", "question no." + i + ". type: " + questionList.get(i).getQuestionType());

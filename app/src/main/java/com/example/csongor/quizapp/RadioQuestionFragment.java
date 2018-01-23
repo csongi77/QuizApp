@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by csongor on 1/22/18.
@@ -24,7 +24,7 @@ import java.util.List;
 public class RadioQuestionFragment extends Fragment {
     private int answerPoints;
     private QuizQuestion question;
-    private View thisView;
+    private View rootView;
     private TextView questionText;
     private ImageView imageView;
     private Boolean[] playerAnswers={false,false,false,false};
@@ -81,14 +81,14 @@ public class RadioQuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        thisView = inflater.inflate(R.layout.radio_question_fragment, container, false);
+        rootView = inflater.inflate(R.layout.radio_question_fragment, container, false);
         readBundle(getArguments());
-        questionText = thisView.findViewById(R.id.radio_question_text);
-        imageView = thisView.findViewById(R.id.radio_question_image_container);
-        radioButtons.add((RadioButton) thisView.findViewById(R.id.radio_answer_option_0));
-        radioButtons.add((RadioButton) thisView.findViewById(R.id.radio_answer_option_1));
-        radioButtons.add((RadioButton) thisView.findViewById(R.id.radio_answer_option_2));
-        radioButtons.add((RadioButton) thisView.findViewById(R.id.radio_answer_option_3));
+        questionText = rootView.findViewById(R.id.radio_question_text);
+        imageView = rootView.findViewById(R.id.radio_question_image_container);
+        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_0));
+        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_1));
+        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_2));
+        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_3));
 
 
         questionText.setText(((Question) question).getQuestion());
@@ -98,7 +98,9 @@ public class RadioQuestionFragment extends Fragment {
         }
         imageView.setImageDrawable(image);
         Log.e("RadioQuestionFragment", " fragment onCreateView executed ---->");
-        return thisView;
+        InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
+        return rootView;
     }
 
     /**
@@ -119,7 +121,7 @@ public class RadioQuestionFragment extends Fragment {
             }
         }
         ((MainActivity) getActivity()).addPoints(answerPoints);
-        thisView = null;
+        rootView = null;
         Log.e("RadioQFragment", " fragment onPause executed ---->");
     }
 

@@ -3,6 +3,7 @@ package com.example.csongor.quizapp;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
@@ -87,9 +90,12 @@ public class StringQuestionFragment extends Fragment {
         questionText.setText(((Question)question).getQuestion());
         Drawable image= getActivity().getDrawable(((Question) question).getImageResourceId());
         imageView.setImageDrawable(image);
+        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_question_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         Log.e("StringQFragment", " fragment onCreateView executed ---->");
         return rootView;
     }
+
 
     /**
      * Called when the Fragment is no longer resumed.  This is generally
