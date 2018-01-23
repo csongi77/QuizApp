@@ -113,6 +113,6 @@ public class StringQuestionFragment extends Fragment {
         }else{
             answerPoints=0;
         }
-        Log.e("StringQFragment", " fragment onPause executed ---->");
+        Log.e("StringQFragment", " fragment onPause executed, answer points:"+answerPoints+" ---->");
     }
 }

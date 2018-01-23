@@ -22,4 +22,10 @@ public interface QuizQuestion extends Serializable{
      *                     3: The list has 4 AnswerOption with multiple rightAnswer -> CHECKBOX_QUESTION
      */
     public int getQuestionType();
+
+    /**
+     *
+     * @return the maximum points (for instance CheckBox questions can worth 2-4 points)
+     */
+    public int getMaxPoints();
 }

@@ -2,6 +2,7 @@ package com.example.csongor.quizapp;
 
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +80,24 @@ public class Question implements QuizQuestion {
         return this.questionType;
     }
 
+    /**
+     * @return the maximum points (for instance CheckBox questions can worth 2-4 points)
+     */
+    @Override
+    public int getMaxPoints() {
+        int toReturn=0;
+       /* for (AnswerOption answer:answerOptions
+             ) {
+            if(answer.isRightAnswer()) toReturn++;
+        }*/
+       for(int i=0; i<answerOptions.size(); i++){
+           if(answerOptions.get(i).isRightAnswer()){
+               toReturn++;
+           }
+       }
+        Log.d("question points: ",toReturn+"--------------------->");
+        return toReturn;
+    }
 
 
 }

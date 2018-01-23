@@ -36,6 +36,7 @@
             tools:text="Test question about question" />
         </RelativeLayout>
         <EditText
+
             android:id="@+id/player_string_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +46,7 @@
             android:focusedByDefault="true"
             android:hint="Your Answer"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="textCapWords"
             android:lines="1"
             android:maxLines="1"
             android:paddingVertical="10dp" />

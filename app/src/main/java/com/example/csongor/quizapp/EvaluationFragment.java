@@ -1,5 +1,6 @@
 package com.example.csongor.quizapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -18,13 +19,33 @@ import android.widget.TextView;
  * Created by csongor on 1/23/18.
  */
 
-public class WelcomeFragment extends Fragment {
-    // field for player's name
+public class EvaluationFragment extends Fragment {
+    private   int answerPoints;
+    private  int maxPoints;
+    private View rootView;
+    private TextView titleText, evaluationText;
+    private ImageView imageView;
     private String playerName;
-    TextView welcomeText;
-    ImageView imageView;
-    EditText playerNameText;
-    View rootView;
+
+
+    //creating fragment with QuizQuestion argument
+    public static EvaluationFragment newInstance(int actualPoints, int maxPoints, String playerName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("player",playerName);
+        bundle.putInt("maxPoints",maxPoints);
+        bundle.putInt("actualPoints", actualPoints);
+        EvaluationFragment fragment =  new EvaluationFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    private void readBundle(Bundle bundle) {
+        if (bundle != null) {
+            this.answerPoints=bundle.getInt("actualPoints");
+            this.maxPoints=bundle.getInt("maxPoints");
+            this.playerName=bundle.getString("player");
+        }
+    }
 
 
     /**
@@ -48,18 +69,20 @@ public class WelcomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.string_question_fragment,container,false);
-        welcomeText=rootView.findViewById(R.id.string_question_text);
-        imageView=rootView.findViewById(R.id.string_question_image_container);
-        playerNameText=rootView.findViewById(R.id.player_string_answer);
-        playerNameText.setHint(R.string.name_hint);
-        welcomeText.setText("Welcome to Mountaineering Quiz");
-        Drawable image= getActivity().getDrawable(R.drawable.p1020310);
-        imageView.setImageDrawable(image);
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_question_container);
+        rootView=inflater.inflate(R.layout.evaluation_fragment,container,false);
+        // setting up views
+        titleText=rootView.findViewById(R.id.evaluation_title_text);
+        evaluationText=rootView.findViewById(R.id.evaluation_text);
+        imageView=rootView.findViewById(R.id.evaluation_image_container);
+        // loading bundle arguments
+        readBundle(getArguments());
+        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.evaluation_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
+        titleText.setText(playerName+", "+(answerPoints/(double)maxPoints)*100+"%, congrats");
+        imageView.setImageDrawable(getActivity().getDrawable(R.drawable.eight_thousanders));
         return rootView;
     }
+
 
     /**
      * Called when the Fragment is no longer resumed.  This is generally
@@ -69,9 +92,6 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        playerName=playerNameText.getText().toString();
-        rootView=null;
-        Log.d("welcome"," name: "+playerName+"-------------");
-        ((MainActivity)getActivity()).setPlayerName(playerName);
+
     }
 }

@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     // variable fields
     private int gameState;
     private int gamePoints;
+    private int maxPoints;
     private android.support.v4.app.FragmentManager fragmentManager;
     private android.support.v4.app.FragmentTransaction transaction;
     private TextView rightButton, leftButton;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         gameState = IN_GAME_STATE;
         // loading question list and the iterator for it
         questions = getQuizQuestions();
+        // getting the maximum point values for the game
+        for (QuizQuestion question:questions
+             ) {
+            maxPoints+=question.getMaxPoints();
+        }
+        Log.d("main","maxPoints: "+maxPoints+"--------->");
         questionIterator = questions.iterator();
         fragmentManager = MainActivity.this.getSupportFragmentManager();
         fragment=new WelcomeFragment();
@@ -112,6 +119,9 @@ public class MainActivity extends AppCompatActivity {
     // After finishing game the activity displays the result
     private void evaluate() {
         Toast.makeText(this, "Your points: " + this.gamePoints, Toast.LENGTH_SHORT).show();
+        Log.d("evaluate","maxpoints: "+maxPoints+", playerpoints: "+gamePoints+" -------->");
+        fragment=EvaluationFragment.newInstance(gamePoints,maxPoints,playerName);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commitNow();
     }
 
     //get current gameState
@@ -132,6 +142,12 @@ public class MainActivity extends AppCompatActivity {
     // set player name
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+        Log.d("main","setPlayerName-------------->"+this.playerName);
+    }
+
+    // return maximum available points for evaluation
+    public int getMaxPoints() {
+        return maxPoints;
     }
 
     /**
@@ -203,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         //fourth question
         AnswerOption answerOption_4_1 = new Answer("Reinhold Messner", true);
         List<AnswerOption> answerOptions_4 = new ArrayList<AnswerOption>();
-        answerOptions_1.add(answerOption_4_1);
+        answerOptions_4.add(answerOption_4_1);
         QuizQuestion question_4 = new Question(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without additional oxygen?", answerOptions_4);
 
         //adding questions to list

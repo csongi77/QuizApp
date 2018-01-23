@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/evaluation_container">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:focusedByDefault="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/evaluation_image_container"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_home_black_24dp" />
+
+
+            <TextView
+                android:id="@+id/evaluation_title_text"
+                android:layout_alignBottom="@id/evaluation_image_container"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                tools:text="Test question about question" />
+
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/evaluation_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Sample evaluation"
+            android:padding="16dp"
+            style="@style/Base.TextAppearance.AppCompat.Body1"/>
+    </LinearLayout>
+</ScrollView>
