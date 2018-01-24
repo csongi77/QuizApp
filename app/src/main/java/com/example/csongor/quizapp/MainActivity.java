@@ -1,11 +1,10 @@
 package com.example.csongor.quizapp;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private Iterator<QuizQuestion> questionIterator;
     Fragment fragment;
     private String playerName;
+    AlertDialog.Builder alertDialogBuilder;
+    AlertDialog alertDialog;
 
 
     @Override
@@ -44,32 +45,53 @@ public class MainActivity extends AppCompatActivity {
         gameState = IN_GAME_STATE;
         // loading question list and the iterator for it
         questions = getQuizQuestions();
-        // getting the maximum point values for the game
-        for (QuizQuestion question:questions
-             ) {
-            maxPoints+=question.getMaxPoints();
-        }
-        Log.d("main","maxPoints: "+maxPoints+"--------->");
         questionIterator = questions.iterator();
+        // getting the maximum available point values for the game
+        for (QuizQuestion question : questions
+                ) {
+            maxPoints += question.getMaxPoints();
+        }
+        //setting up fragment manager
         fragmentManager = MainActivity.this.getSupportFragmentManager();
-        fragment=new WelcomeFragment();
-        // show welcome string
-        fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).commit();
+        fragment = new WelcomeFragment();
+        // show welcome screen
+        fragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        // assigning buttons. Later it's easier to use these variable names
         rightButton = (TextView) findViewById(R.id.right_button);
         leftButton = (TextView) findViewById(R.id.left_button);
-        // loading fist question
-       // doit();
-        // setting up listener for the next question button
+        // setting up listeners to buttons
         rightButton.setOnClickListener(v -> {
             Log.e("Main/ onStart", "------------CLICKED------------");
             doit();
         });
     }
+
+
+    /**
+     * Take care of finishing the game as appropriate.
+     * If user presses the back button, it will get an alert to ensure that the game will be ended
+     */
+    @Override
+    public void onBackPressed() {
+        // alert dialog declaration
+        alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialog = alertDialogBuilder.setTitle(R.string.exit_header)
+                .setMessage(R.string.exit_alert)
+                .setPositiveButton(R.string.ok, (v, i) -> {
+                    MainActivity.super.onBackPressed();
+                })
+                .setNegativeButton(R.string.cancel, (v, i) -> {
+                    alertDialog.hide();
+                })
+                .create();
+        alertDialog.show();
+    }
+
 
     // method for creating fragments for the questions
     private void doit() {
@@ -95,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
             }
             // Replace whatever is in the fragment_container view with this fragment
             transaction.replace(R.id.fragment_container, fragment);
-            // add the transaction to the back stack if you want to step back to previous question.
-            // this is depending on game type. If later you want to develop undo option, this would be
-            // the entry point
+            // Add the transaction to the back stack if you want to step back to previous question.
+            // This is depending on game type. If later you want to develop undo option, this would be
+            // the entry point for it
             //transaction.addToBackStack(null);
             transaction.commit();
 
@@ -119,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
     // After finishing game the activity displays the result
     private void evaluate() {
         Toast.makeText(this, "Your points: " + this.gamePoints, Toast.LENGTH_SHORT).show();
-        Log.d("evaluate","maxpoints: "+maxPoints+", playerpoints: "+gamePoints+" -------->");
-        fragment=EvaluationFragment.newInstance(gamePoints,maxPoints,playerName);
-        fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commitNow();
+        Log.d("evaluate", "maxpoints: " + maxPoints + ", playerpoints: " + gamePoints + " -------->");
+        fragment = EvaluationFragment.newInstance(gamePoints, maxPoints, playerName);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commitNow();
     }
 
     //get current gameState
@@ -142,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
     // set player name
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
-        Log.d("main","setPlayerName-------------->"+this.playerName);
     }
 
     // return maximum available points for evaluation

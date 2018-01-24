@@ -44,7 +44,7 @@
             android:layout_marginBottom="46dp"
             android:ellipsize="end"
             android:focusedByDefault="true"
-            android:hint="Your Answer"
+            android:hint="@string/your_answer"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:lines="1"

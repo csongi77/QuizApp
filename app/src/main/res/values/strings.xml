@@ -6,4 +6,9 @@
     <string name="next_question">Next question</string>
     <string name="name_hint">Enter Your Name</string>
     <string name="evaluation">Evaluate</string>
+    <string name="your_answer">Your Answer</string>
+    <string name="exit_alert">If you exit, your game status will lost! Proceed?</string>
+    <string name="exit_header">Exit warning</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
 </resources>
