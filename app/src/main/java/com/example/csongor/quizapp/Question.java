@@ -81,7 +81,8 @@ public class Question implements QuizQuestion {
     }
 
     /**
-     * @return the maximum points (for instance CheckBox questions can worth 2-4 points)
+     * @return the maximum points (for instance CheckBox questions can worth 2-4 points depending on
+     *  the number of right answer options)
      */
     @Override
     public int getMaxPoints() {

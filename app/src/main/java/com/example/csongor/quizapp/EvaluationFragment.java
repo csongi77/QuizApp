@@ -76,6 +76,7 @@ public class EvaluationFragment extends Fragment {
         imageView=rootView.findViewById(R.id.evaluation_image_container);
         // loading bundle arguments
         readBundle(getArguments());
+        // scrolling down to remain the evaluation text visible
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.evaluation_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         titleText.setText(playerName+", "+(answerPoints/(double)maxPoints)*100+"%, congrats");
@@ -92,6 +93,11 @@ public class EvaluationFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+
+    }
+
+    private void evaluateGame(){
+        double result=answerPoints/(double)maxPoints*100;
 
     }
 }

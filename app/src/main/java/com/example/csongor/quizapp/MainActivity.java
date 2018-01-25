@@ -64,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
         // assigning buttons. Later it's easier to use these variable names
         rightButton = (TextView) findViewById(R.id.right_button);
         leftButton = (TextView) findViewById(R.id.left_button);
+        leftButton.setEnabled(false);
         // setting up listeners to buttons
         rightButton.setOnClickListener(v -> {
             Log.e("Main/ onStart", "------------CLICKED------------");
-            doit();
+            doQuestionFragment();
         });
     }
 
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     // method for creating fragments for the questions
-    private void doit() {
+    private void doQuestionFragment() {
         if (this.gameState != LAST_QUESTION_STATE) {
             transaction = fragmentManager.beginTransaction();
             Question question;
@@ -127,10 +128,11 @@ public class MainActivity extends AppCompatActivity {
         // change state if there are no more questions
         if (!questionIterator.hasNext()) {
             setGameState(LAST_QUESTION_STATE);
+            // enabling evaluation button and disabling the next question button
             rightButton.setClickable(false);
-            rightButton.setTextColor(getResources().getColor(R.color.inactiveButton));
-            leftButton.setTextColor(getResources().getColor(R.color.colorPrimary));
+            rightButton.setEnabled(false);
             leftButton.setClickable(true);
+            leftButton.setEnabled(true);
             leftButton.setOnClickListener(v -> {
                 fragmentManager.beginTransaction().detach(fragment).commitNow();
                 evaluate();
@@ -225,30 +227,26 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_3.add(answerOption_3_4);
         QuizQuestion question_3 = new Question(R.drawable.everest, "Who climbed first time the Mount Everest?", answerOptions_3);
 
-        //third question_A
-        AnswerOption answerOption_3a_1 = new Answer("Reinhold Messner", false);
-        AnswerOption answerOption_3a_2 = new Answer("Tenzing Norgay", true);
-        AnswerOption answerOption_3a_3 = new Answer("Sir Edmund Hillary", true);
-        AnswerOption answerOption_3a_4 = new Answer("Reinhold Messner", false);
+        //fourth question
+        AnswerOption answerOption_3a_1 = new Answer("Andes", false);
+        AnswerOption answerOption_3a_2 = new Answer("Himalayas", true);
+        AnswerOption answerOption_3a_3 = new Answer("Karakoram", true);
+        AnswerOption answerOption_3a_4 = new Answer("North American Cordillera", false);
         List<AnswerOption> answerOptions_3a = new ArrayList<AnswerOption>();
         answerOptions_3a.add(answerOption_3a_1);
         answerOptions_3a.add(answerOption_3a_2);
         answerOptions_3a.add(answerOption_3a_3);
         answerOptions_3a.add(answerOption_3a_4);
-        QuizQuestion question_3a = new Question(R.drawable.eight_thousanders, "Who climbed first time the Mount Everest?", answerOptions_3a);
+        QuizQuestion question_3a = new Question(R.drawable.eight_thousanders, "Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?", answerOptions_3a);
 
-        //fourth question
-        AnswerOption answerOption_4_1 = new Answer("Reinhold Messner", true);
-        List<AnswerOption> answerOptions_4 = new ArrayList<AnswerOption>();
-        answerOptions_4.add(answerOption_4_1);
-        QuizQuestion question_4 = new Question(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without additional oxygen?", answerOptions_4);
 
         //adding questions to list
         questionList.add(question_1);
-        questionList.add(question_1a);
-        questionList.add(question_3);
-        //questionList.add(question_3a);
+        //questionList.add(question_1a);
         questionList.add(question_2);
+        questionList.add(question_3);
+        questionList.add(question_3a);
+
         // questionList.add(question_4);
 
         for (int i = 0; i < questionList.size(); i++) {

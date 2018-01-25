@@ -84,8 +84,10 @@ public class CheckboxQuestionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.checkbox_question_fragment, container, false);
+        // setting up the variables
         questionText = rootView.findViewById(R.id.checkbox_question_text);
         imageView = rootView.findViewById(R.id.checkbox_question_image_container);
+        // adding the checkbox variables into arraylist for the evaluation (in the onPause method)
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_0));
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_1));
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_2));
@@ -93,11 +95,13 @@ public class CheckboxQuestionFragment extends Fragment {
         readBundle(getArguments());
         questionText.setText(((Question) question).getQuestion());
         Drawable image = getActivity().getDrawable(((Question) question).getImageResourceId());
+        // displaying the questions
         for (int i = 0; i < checkBoxes.size(); i++) {
             checkBoxes.get(i).setText(((Question) question).getAnswerOptions().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
         rootView.clearFocus();
+        // hiding virtual keyboard, if it was active due to StringQuestionFragment
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.checkbox_question_container);
@@ -115,12 +119,14 @@ public class CheckboxQuestionFragment extends Fragment {
     public void onPause() {
         super.onPause();
         Log.e("RadioQFragment", " fragment onPause executed ---->");
-        // checking right answer. The loop goes through the checked buttons and the answer list.
-        // if both is true (checkBoxes.get(i) and answerOptions.get(i)) than the result is also true.
-        // in this, and only this case answer points raises by 1. If the answerOption is false but it
-        // was checked the answer points will be decreased to avoid getting points by selecting all
-        // possible answer options.
-
+        /** Checking right answer. The loop goes through the checked buttons and the answer list.
+        * if both is true (checkBoxes.get(i) and answerOptions.get(i)) than the result is also true.
+        * in this, and only this case answer points raises by 1. If the answerOption is false but it
+        * was checked the answer points will be decreased to avoid getting points by selecting all
+        * possible answer options.
+        *  For example if player checks 2 correct and 1 wrong answer they get only 1 point
+        * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
+        */
        for (int i = 0; i < checkBoxes.size(); i++) {
             if (checkBoxes.get(i).isChecked() & ((Question) question).getAnswerOptions().get(i).isRightAnswer()) {
                 answerPoints++;
