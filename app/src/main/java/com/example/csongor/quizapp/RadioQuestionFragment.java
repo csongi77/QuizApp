@@ -98,7 +98,7 @@ public class RadioQuestionFragment extends Fragment {
             radioButtons.get(i).setText(((Question) question).getAnswerOptions().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
-        Log.e("RadioQuestionFragment", " fragment onCreateView executed ---->");
+        // hiding virtual keyboard, if it was active due to StringQuestionFragment
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.radio_question_container);

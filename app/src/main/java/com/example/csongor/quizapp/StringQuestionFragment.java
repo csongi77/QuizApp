@@ -92,10 +92,11 @@ public class StringQuestionFragment extends Fragment {
         questionText.setText(((Question)question).getQuestion());
         Drawable image= getActivity().getDrawable(((Question) question).getImageResourceId());
         imageView.setImageDrawable(image);
+        InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
         // scrolling down to make the editText field visible
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_question_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        Log.e("StringQFragment", " fragment onCreateView executed ---->");
         return rootView;
     }
 
@@ -119,6 +120,5 @@ public class StringQuestionFragment extends Fragment {
         }else{
             answerPoints=0;
         }
-        Log.e("StringQFragment", " fragment onPause executed, answer points:"+answerPoints+" ---->");
     }
 }

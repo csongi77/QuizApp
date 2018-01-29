@@ -53,7 +53,7 @@ public class WelcomeFragment extends Fragment {
         imageView=rootView.findViewById(R.id.string_question_image_container);
         playerNameText=rootView.findViewById(R.id.player_string_answer);
         playerNameText.setHint(R.string.name_hint);
-        welcomeText.setText("Welcome to Mountaineering Quiz");
+        welcomeText.setText(R.string.welcome_title);
         Drawable image= getActivity().getDrawable(R.drawable.p1020310);
         imageView.setImageDrawable(image);
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_question_container);
@@ -69,9 +69,9 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        // setting player name
         playerName=playerNameText.getText().toString();
         rootView=null;
-        Log.d("welcome"," name: "+playerName+"-------------");
         ((MainActivity)getActivity()).setPlayerName(playerName);
     }
 }

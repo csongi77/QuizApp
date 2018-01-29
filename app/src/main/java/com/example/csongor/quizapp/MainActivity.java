@@ -79,18 +79,22 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        // alert dialog declaration
-        alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialog = alertDialogBuilder.setTitle(R.string.exit_header)
-                .setMessage(R.string.exit_alert)
-                .setPositiveButton(R.string.ok, (v, i) -> {
-                    MainActivity.super.onBackPressed();
-                })
-                .setNegativeButton(R.string.cancel, (v, i) -> {
-                    alertDialog.hide();
-                })
-                .create();
-        alertDialog.show();
+        // alert dialog declaration if it's not end game state...
+        if (gameState != EVALUATION_STATE) {
+            alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialog = alertDialogBuilder.setTitle(R.string.exit_header)
+                    .setMessage(R.string.exit_alert)
+                    .setPositiveButton(R.string.ok, (v, i) -> {
+                        MainActivity.super.onBackPressed();
+                    })
+                    .setNegativeButton(R.string.cancel, (v, i) -> {
+                        alertDialog.hide();
+                    })
+                    .create();
+            alertDialog.show();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             leftButton.setOnClickListener(v -> {
                 fragmentManager.beginTransaction().detach(fragment).commitNow();
                 evaluate();
+                setGameState(EVALUATION_STATE);
             });
         }
     }

@@ -106,7 +106,6 @@ public class CheckboxQuestionFragment extends Fragment {
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.checkbox_question_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        Log.e("CheckboxQFragment", " fragment onCreateView executed ---->");
         return rootView;
     }
 
@@ -118,7 +117,6 @@ public class CheckboxQuestionFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.e("RadioQFragment", " fragment onPause executed ---->");
         /** Checking right answer. The loop goes through the checked buttons and the answer list.
         * if both is true (checkBoxes.get(i) and answerOptions.get(i)) than the result is also true.
         * in this, and only this case answer points raises by 1. If the answerOption is false but it
