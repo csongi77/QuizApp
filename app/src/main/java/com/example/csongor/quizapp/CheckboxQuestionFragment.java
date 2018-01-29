@@ -25,6 +25,7 @@ import java.util.List;
  */
 
 public class CheckboxQuestionFragment extends Fragment {
+    private static final String QUESTION="question";
     private int answerPoints;
     private QuizQuestion question;
     private View rootView;
@@ -35,7 +36,7 @@ public class CheckboxQuestionFragment extends Fragment {
     //creating fragment with QuizQuestion argument
     public static CheckboxQuestionFragment newInstance(QuizQuestion quizQuestion) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("question", quizQuestion);
+        bundle.putSerializable(QUESTION, quizQuestion);
         CheckboxQuestionFragment fragment = new CheckboxQuestionFragment();
         fragment.setArguments(bundle);
         Log.e("CheckboxQFragment", " fragment instantinated ---->");
@@ -44,7 +45,7 @@ public class CheckboxQuestionFragment extends Fragment {
 
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
-            question = (Question) bundle.get("question");
+            question = (Question) bundle.get(QUESTION);
         }
     }
 
@@ -109,6 +110,8 @@ public class CheckboxQuestionFragment extends Fragment {
         return rootView;
     }
 
+
+
     /**
      * Called when the Fragment is no longer resumed.  This is generally
      * tied to {@link Activity#onPause() Activity.onPause} of the containing
@@ -132,13 +135,15 @@ public class CheckboxQuestionFragment extends Fragment {
                 answerPoints--;
             }
         }
-        if (answerPoints > 0)
+//        if (answerPoints > 0)
+        if (answerPoints == question.getMaxPoints())
             ((MainActivity) getActivity()).addPoints(answerPoints);
-        for (CheckBox checkbox:checkBoxes
+        /*for (CheckBox checkbox:checkBoxes
              ) {checkbox=null;
 
         }
-        rootView = null;
+        rootView = null;*/
+
         Log.e("RadioQFragment", " fragment onPause executed ---->");
     }
 }

@@ -47,10 +47,7 @@ public class MainActivity extends AppCompatActivity {
         questions = getQuizQuestions();
         questionIterator = questions.iterator();
         // getting the maximum available point values for the game
-        for (QuizQuestion question : questions
-                ) {
-            maxPoints += question.getMaxPoints();
-        }
+        maxPoints=questions.size();
         //setting up fragment manager
         fragmentManager = MainActivity.this.getSupportFragmentManager();
         fragment = new WelcomeFragment();
