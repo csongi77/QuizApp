@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/string_question_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/string_question_image_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:focusedByDefault="true"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/string_question_image_container"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/ic_home_black_24dp" />
+        android:scaleType="centerCrop"
+        tools:src="@drawable/elcap" />
 
+    <ScrollView
+        android:id="@+id/string_scroll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/string_question_text"
-            android:layout_alignBottom="@id/string_question_image_container"
-            style="@style/quiz_question_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Test question about question" />
-        </RelativeLayout>
-        <EditText
+            android:orientation="vertical">
 
-            android:id="@+id/player_string_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="46dp"
-            android:ellipsize="end"
-            android:focusedByDefault="false"
-            android:hint="@string/your_answer"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:lines="1"
-            android:maxLines="1"
-            android:paddingVertical="10dp" />
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/string_question_text"
+                style="@style/quiz_question_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/string_question_image_container"
+                tools:text="@string/test_title" />
+
+            <EditText
+                android:id="@+id/player_string_answer"
+                style="@style/edit_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_answer" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/bottom_ruler" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

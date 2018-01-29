@@ -56,7 +56,7 @@ public class WelcomeFragment extends Fragment {
         welcomeText.setText(R.string.welcome_title);
         Drawable image= getActivity().getDrawable(R.drawable.p1020310);
         imageView.setImageDrawable(image);
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_question_container);
+        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
     }

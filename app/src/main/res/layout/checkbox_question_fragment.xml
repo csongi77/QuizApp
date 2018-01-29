@@ -26,18 +26,15 @@
 
             <TextView
                 android:id="@+id/checkbox_question_text"
+                style="@style/quiz_question_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/checkbox_answer_container"
-                style="@style/quiz_question_title"
-                tools:text="Test question about question" />
+                tools:text="@string/test_title" />
 
             <LinearLayout
                 android:id="@+id/checkbox_answer_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:focusedByDefault="true"
                 android:orientation="vertical">
 
                 <CheckBox
@@ -67,11 +64,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="Checkbox answer option 3" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="@dimen/bottom_ruler"/>
+
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/bottom_ruler" />
         </LinearLayout>
     </ScrollView>
 

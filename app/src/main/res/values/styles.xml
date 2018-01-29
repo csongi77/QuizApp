@@ -34,4 +34,23 @@
         <item name="android:background">@color/checkbox_light</item>
     </style>
 
+    <!-- Edittext style -->
+    <style name="edit_text_style">
+        <item name="android:layout_marginBottom">@dimen/edit_text_margin_bottom</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_default</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_default</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:imeOptions">actionDone</item>
+        <item name="android:inputType">textCapWords</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingTop">@dimen/edit_text_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/edit_text_padding_vertical</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_default</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_default</item>
+        <item name="android:background">@color/checkbox_light</item>
+        <item name="android:textColor">@color/color_text_white</item>
+        <item name="android:textColorHint">@color/color_text_white</item>
+    </style>
+
 </resources>

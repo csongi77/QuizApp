@@ -11,4 +11,6 @@
     <dimen name="checkbox_answer_padding_horizontal">8dp</dimen>
     <dimen name="checkbox_answer_padding_vertical">10dp</dimen>
     <dimen name="bottom_ruler">48dp</dimen>
+    <dimen name="edit_text_margin_bottom">46dp</dimen>
+    <dimen name="edit_text_padding_vertical">10dp</dimen>
 </resources>
