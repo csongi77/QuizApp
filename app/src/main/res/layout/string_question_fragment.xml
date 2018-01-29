@@ -24,15 +24,9 @@
         <TextView
             android:id="@+id/string_question_text"
             android:layout_alignBottom="@id/string_question_image_container"
-            style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textStyle="bold"
+            style="@style/quiz_question_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
             tools:text="Test question about question" />
         </RelativeLayout>
         <EditText

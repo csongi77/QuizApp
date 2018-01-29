@@ -5,5 +5,7 @@
     <color name="colorAccent">#00ae14</color>
     <color name="inactiveButton">#b6b6b6</color>
     <color name="buttonClicked">#ffea00</color>
+    <color name="checkbox_light">#99666666</color>
+    <color name="color_text_white">#ffffff</color>
 </resources>
 

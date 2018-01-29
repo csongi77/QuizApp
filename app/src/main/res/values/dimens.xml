@@ -2,4 +2,8 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_default">16dp</dimen>
     <dimen name="activity_vertical_default">16dp</dimen>
+    <dimen name="question_title_margin_bottom">16dp</dimen>
+    <dimen name="question_title_margin_end">32dp</dimen>
+    <dimen name="question_title_padding_horizontal">16dp</dimen>
+    <dimen name="question_title_padding_vertical">8dp</dimen>
 </resources>

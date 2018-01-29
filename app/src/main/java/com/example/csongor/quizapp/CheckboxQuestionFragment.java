@@ -104,8 +104,8 @@ public class CheckboxQuestionFragment extends Fragment {
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.checkbox_question_container);
-        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
+       ScrollView scroll=(ScrollView)rootView.findViewById(R.id.checkbox_scroll_container);
+       scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
     }
 

@@ -246,9 +246,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //adding questions to list
-        questionList.add(question_1);
+    //    questionList.add(question_1);
         //questionList.add(question_1a);
-        questionList.add(question_2);
+     //   questionList.add(question_2);
         questionList.add(question_3);
         questionList.add(question_3a);
 

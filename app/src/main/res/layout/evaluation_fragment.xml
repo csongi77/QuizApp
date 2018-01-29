@@ -24,15 +24,9 @@
             <TextView
                 android:id="@+id/evaluation_title_text"
                 android:layout_alignBottom="@id/evaluation_image_container"
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="16dp"
+                style="@style/quiz_question_title"
                 tools:text="Test question about question" />
 
 
