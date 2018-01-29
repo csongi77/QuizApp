@@ -42,59 +42,35 @@
 
                 <CheckBox
                     android:id="@+id/checkbox_answer_option_0"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    style="@style/checkbox_answer_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="6dp"
-                    android:background="@color/checkbox_light"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="10dp"
-                    android:textColor="@color/color_text_white"
                     tools:text="Checkbox answer option 0" />
 
                 <CheckBox
                     android:id="@+id/checkbox_answer_option_1"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    style="@style/checkbox_answer_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="6dp"
-                    android:background="@color/checkbox_light"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="10dp"
-                    android:textColor="@color/color_text_white"
                     tools:text="Checkbox answer option 1" />
 
                 <CheckBox
                     android:id="@+id/checkbox_answer_option_2"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    style="@style/checkbox_answer_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="6dp"
-                    android:background="@color/checkbox_light"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="10dp"
-                    android:textColor="@color/color_text_white"
                     tools:text="Checkbox answer option 2" />
 
                 <CheckBox
                     android:id="@+id/checkbox_answer_option_3"
-                    style="@style/Base.TextAppearance.AppCompat.Body2"
+                    style="@style/checkbox_answer_style"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginVertical="6dp"
-                    android:background="@color/checkbox_light"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="10dp"
-                    android:textColor="@color/color_text_white"
                     tools:text="Checkbox answer option 3" />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"/>
+                    android:minHeight="@dimen/bottom_ruler"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

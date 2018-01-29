@@ -6,4 +6,9 @@
     <dimen name="question_title_margin_end">32dp</dimen>
     <dimen name="question_title_padding_horizontal">16dp</dimen>
     <dimen name="question_title_padding_vertical">8dp</dimen>
+    <dimen name="checkbox_answer_margin_horizontal">16dp</dimen>
+    <dimen name="checbox_answer_margin_vertical">6dp</dimen>
+    <dimen name="checkbox_answer_padding_horizontal">8dp</dimen>
+    <dimen name="checkbox_answer_padding_vertical">10dp</dimen>
+    <dimen name="bottom_ruler">48dp</dimen>
 </resources>

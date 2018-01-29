@@ -20,4 +20,18 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <!-- Checkbox and Radio button style -->
+    <style name="checkbox_answer_style" parent="Base.TextAppearance.AppCompat.Body2">
+        <item name="android:layout_marginTop">@dimen/checbox_answer_margin_vertical</item>
+        <item name="android:layout_marginBottom">@dimen/checbox_answer_margin_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/checkbox_answer_margin_horizontal</item>
+        <item name="android:layout_marginRight">@dimen/checkbox_answer_margin_horizontal</item>
+        <item name="android:paddingTop">@dimen/checkbox_answer_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/checkbox_answer_padding_vertical</item>
+        <item name="android:paddingLeft">@dimen/checkbox_answer_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/checkbox_answer_padding_horizontal</item>
+        <item name="android:textColor">@color/color_text_white</item>
+        <item name="android:background">@color/checkbox_light</item>
+    </style>
+
 </resources>
