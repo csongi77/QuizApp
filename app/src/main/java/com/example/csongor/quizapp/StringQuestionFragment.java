@@ -42,7 +42,7 @@ public class StringQuestionFragment extends Fragment {
 
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
-            question=(Question)bundle.get("question");
+            question=(QuizQuestion) bundle.get("question");
         }
     }
 
@@ -89,8 +89,8 @@ public class StringQuestionFragment extends Fragment {
         answerText=rootView.findViewById(R.id.player_string_answer);
         readBundle(getArguments());
         // displaying the image and question
-        questionText.setText(((Question)question).getQuestion());
-        Drawable image= getActivity().getDrawable(((Question) question).getImageResourceId());
+        questionText.setText(((QuizQuestion)question).getQuestion());
+        Drawable image= getActivity().getDrawable(((QuizQuestion) question).getImageResourceId());
         imageView.setImageDrawable(image);
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
@@ -114,7 +114,7 @@ public class StringQuestionFragment extends Fragment {
         /**
          * Checking the answer. If the string answer is the same then the player gets 1 point
          */
-        if(playerAnswer.equals(((Question)question).getAnswerOptions().get(0).getAnswerText().toLowerCase())){
+        if(playerAnswer.equals(((QuizQuestion)question).getAnswerOptions().get(0).getAnswerText().toLowerCase())){
             answerPoints=1;
             ((MainActivity)getActivity()).addPoints(answerPoints);
         }else{

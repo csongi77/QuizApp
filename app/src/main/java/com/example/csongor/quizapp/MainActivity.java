@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -98,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
     private void doQuestionFragment() {
         if (this.gameState != LAST_QUESTION_STATE) {
             transaction = fragmentManager.beginTransaction();
-            Question question;
+            QuizQuestion question;
             //get the next question
-            question = (Question) questionIterator.next();
+            question = (QuizQuestion) questionIterator.next();
             // depending the question type the appropriate fragment will be used.
             // development suggestion: make this using Chain of Responsibility pattern to avoid multiple if statements
             if (question.getQuestionType() == QuizQuestion.STRING_QUESTION) {
@@ -140,11 +138,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commitNow();
     }
 
-    //get current gameState
-    public int getGameState() {
-        return gameState;
-    }
-
     //set new gameState
     public void setGameState(int gameState) {
         this.gameState = gameState;
@@ -160,10 +153,6 @@ public class MainActivity extends AppCompatActivity {
         this.playerName = playerName;
     }
 
-    // return maximum available points for evaluation
-    public int getMaxPoints() {
-        return maxPoints;
-    }
 
     /**
      * @param value to add this amount to game points
@@ -186,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
         List<AnswerOption> answerOptions_1 = new ArrayList<AnswerOption>();
         answerOptions_1.add(answerOption_1_1);
         // By Photo: chil, on Camptocamp.orgDerivative work:Zacharie Grossen - Camptocamp.org, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=16791896
-        QuizQuestion question_1 = new Question(R.drawable.matterhorn, "Who climbed first the Matterhorn?", answerOptions_1);
+        QuizQuestion question_1 = new QuizQuestion(R.drawable.matterhorn, "Who climbed first the Matterhorn?", answerOptions_1);
 
 
         // first.A question (String question)
@@ -194,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         List<AnswerOption> answerOptions_1a = new ArrayList<AnswerOption>();
         answerOptions_1a.add(answerOption_1a_1);
         // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
-        QuizQuestion question_1a = new Question(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without support oxygen?", answerOptions_1a);
+        QuizQuestion question_1a = new QuizQuestion(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without support oxygen?", answerOptions_1a);
 
         // second question (Radio question)
         AnswerOption answerOption_2_1 = new Answer("El Capitan", true);
@@ -207,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_2.add(answerOption_2_3);
         answerOptions_2.add(answerOption_2_4);
         //By Mike Murphy, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=295635
-        QuizQuestion question_2 = new Question(R.drawable.elcap, "What is the name of Yosemite's favourite granite Monolith?", answerOptions_2);
+        QuizQuestion question_2 = new QuizQuestion(R.drawable.elcap, "What is the name of Yosemite's favourite granite Monolith?", answerOptions_2);
 
 
         //third question
@@ -221,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_3.add(answerOption_3_3);
         answerOptions_3.add(answerOption_3_4);
         //By Uwe Gille (talk · contribs) - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=121222
-        QuizQuestion question_3 = new Question(R.drawable.everest, "Who climbed first time the Mount Everest?", answerOptions_3);
+        QuizQuestion question_3 = new QuizQuestion(R.drawable.everest, "Who climbed first time the Mount Everest?", answerOptions_3);
 
         //fourth question
         AnswerOption answerOption_3a_1 = new Answer("Andes", false);
@@ -234,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_3a.add(answerOption_3a_3);
         answerOptions_3a.add(answerOption_3a_4);
         // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
-        QuizQuestion question_3a = new Question(R.drawable.eight_thousanders, "Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?", answerOptions_3a);
+        QuizQuestion question_3a = new QuizQuestion(R.drawable.eight_thousanders, "Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?", answerOptions_3a);
 
         // fifth question (Radio question)
         AnswerOption answerOption_5_1 = new Answer("Kurt Diemberger", false);
@@ -247,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_5.add(answerOption_5_3);
         answerOptions_5.add(answerOption_5_4);
         //By Tahsin Anwar Ali - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=40616492
-        QuizQuestion question_5 = new Question(R.drawable.nanga_parbat, "The first ascent of Nanga Parbat in 1953 is achieved in solo! Who did it?", answerOptions_5);
+        QuizQuestion question_5 = new QuizQuestion(R.drawable.nanga_parbat, "The first ascent of Nanga Parbat in 1953 is achieved in solo! Who did it?", answerOptions_5);
 
         //adding questions to list
         questionList.add(question_1);
@@ -256,8 +245,6 @@ public class MainActivity extends AppCompatActivity {
         questionList.add(question_3);
         questionList.add(question_3a);
         questionList.add(question_5);
-
-
 
         //returning the list of questions
         return questionList;

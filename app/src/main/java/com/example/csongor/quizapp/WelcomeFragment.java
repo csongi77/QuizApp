@@ -1,11 +1,9 @@
 package com.example.csongor.quizapp;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,9 +47,11 @@ public class WelcomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView=inflater.inflate(R.layout.string_question_fragment,container,false);
+        // assigning variable namest to views
         welcomeText=rootView.findViewById(R.id.string_question_text);
         imageView=rootView.findViewById(R.id.string_question_image_container);
         playerNameText=rootView.findViewById(R.id.player_string_answer);
+        // setting up appropriate text
         playerNameText.setHint(R.string.name_hint);
         welcomeText.setText(R.string.welcome_title);
         Drawable image= getActivity().getDrawable(R.drawable.p1020310);

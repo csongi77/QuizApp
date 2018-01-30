@@ -13,12 +13,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by csongor on 1/22/18.
@@ -45,7 +43,7 @@ public class CheckboxQuestionFragment extends Fragment {
 
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
-            question = (Question) bundle.get(QUESTION);
+            question = (QuizQuestion) bundle.get(QUESTION);
         }
     }
 
@@ -88,17 +86,17 @@ public class CheckboxQuestionFragment extends Fragment {
         // setting up the variables
         questionText = rootView.findViewById(R.id.checkbox_question_text);
         imageView = rootView.findViewById(R.id.checkbox_question_image_container);
-        // adding the checkbox variables into arraylist for the evaluation (in the onPause method)
+        // adding the checkbox variables into arraylist for the evaluation
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_0));
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_1));
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_2));
         checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_3));
         readBundle(getArguments());
-        questionText.setText(((Question) question).getQuestion());
-        Drawable image = getActivity().getDrawable(((Question) question).getImageResourceId());
+        questionText.setText(question.getQuestion());
+        Drawable image = getActivity().getDrawable(question.getImageResourceId());
         // displaying the questions
         for (int i = 0; i < checkBoxes.size(); i++) {
-            checkBoxes.get(i).setText(((Question) question).getAnswerOptions().get(i).getAnswerText());
+            checkBoxes.get(i).setText(question.getAnswerOptions().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
         rootView.clearFocus();
@@ -129,21 +127,13 @@ public class CheckboxQuestionFragment extends Fragment {
         * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
         */
        for (int i = 0; i < checkBoxes.size(); i++) {
-            if (checkBoxes.get(i).isChecked() & ((Question) question).getAnswerOptions().get(i).isRightAnswer()) {
+            if (checkBoxes.get(i).isChecked() & ((QuizQuestion) question).getAnswerOptions().get(i).isRightAnswer()) {
                 answerPoints++;
-            } else if (checkBoxes.get(i).isChecked() && !(((Question) question).getAnswerOptions().get(i).isRightAnswer())) {
+            } else if (checkBoxes.get(i).isChecked() && !(((QuizQuestion) question).getAnswerOptions().get(i).isRightAnswer())) {
                 answerPoints--;
             }
         }
-//        if (answerPoints > 0)
         if (answerPoints == question.getMaxPoints())
             ((MainActivity) getActivity()).addPoints(1);
-        /*for (CheckBox checkbox:checkBoxes
-             ) {checkbox=null;
-
-        }
-        rootView = null;*/
-
-        Log.e("RadioQFragment", " fragment onPause executed ---->");
     }
 }

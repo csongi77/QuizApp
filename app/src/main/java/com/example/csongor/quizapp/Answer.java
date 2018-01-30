@@ -1,10 +1,12 @@
 package com.example.csongor.quizapp;
 
+import java.io.Serializable;
+
 /**
  * Created by csongor on 1/20/18.
  */
 
-public class Answer implements AnswerOption {
+public class Answer implements Serializable, AnswerOption {
     //private fields
     private String answerText;
     private boolean rightAnswer;

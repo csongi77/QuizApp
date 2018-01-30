@@ -43,7 +43,7 @@ public class RadioQuestionFragment extends Fragment {
 
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
-            question = (Question) bundle.get("question");
+            question = (QuizQuestion) bundle.get("question");
         }
     }
 
@@ -92,10 +92,10 @@ public class RadioQuestionFragment extends Fragment {
         radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_3));
 
 
-        questionText.setText(((Question) question).getQuestion());
-        Drawable image = getActivity().getDrawable(((Question) question).getImageResourceId());
+        questionText.setText(((QuizQuestion) question).getQuestion());
+        Drawable image = getActivity().getDrawable(((QuizQuestion) question).getImageResourceId());
         for (int i=0; i<radioButtons.size(); i++){
-            radioButtons.get(i).setText(((Question) question).getAnswerOptions().get(i).getAnswerText());
+            radioButtons.get(i).setText(((QuizQuestion) question).getAnswerOptions().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
@@ -119,7 +119,7 @@ public class RadioQuestionFragment extends Fragment {
         // in this, and only this case answer points raises by 1. Because only one right answer is
         // possible, it returns only 1 point for the right answered question
         for (int i = 0; i < radioButtons.size(); i++) {
-            if (radioButtons.get(i).isChecked() & ((Question) question).getAnswerOptions().get(i).isRightAnswer()) {
+            if (radioButtons.get(i).isChecked() & ((QuizQuestion) question).getAnswerOptions().get(i).isRightAnswer()) {
                 answerPoints++;
             }
         }
