@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">QuizApp</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
@@ -13,4 +13,15 @@
     <string name="cancel">Cancel</string>
     <string name="welcome_title">Welcome to Mountaineering Quiz</string>
     <string name="test_title">Test question about question</string>
+    <string name="your_points">Your points: </string>
+    <string name="sample_text">This is a sample tool text</string>
+    <!-- Evaluation strings -->
+    <string name="evaluation_title">
+        <xliff:g id="player">%s</xliff:g>, you\'ve got <xliff:g id="answer">%d</xliff:g> of maximum
+        <xliff:g id="max_points">%d</xliff:g> points. That is <xliff:g id="result">%s</xliff:g> percent.
+    </string>
+    <string name="try_again">Thank you for the game, I think you should try again</string>
+    <string name="not_bad">Not bad, after some practising you\'ll be pro!</string>
+    <string name="awesome">Woooow, you are a pro climber, aren\'t you?</string>
+
 </resources>

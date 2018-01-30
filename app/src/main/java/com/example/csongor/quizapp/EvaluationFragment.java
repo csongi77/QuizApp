@@ -20,8 +20,12 @@ import android.widget.TextView;
  */
 
 public class EvaluationFragment extends Fragment {
-    private   int answerPoints;
-    private  int maxPoints;
+    // defining vatiables
+    private static final String PLAYER = "player";
+    private static final String MAX_POINTS = "maxPoints";
+    private static final String ACTUAL_POINTS = "actualPoints";
+    private int answerPoints;
+    private int maxPoints;
     private View rootView;
     private TextView titleText, evaluationText;
     private ImageView imageView;
@@ -31,19 +35,19 @@ public class EvaluationFragment extends Fragment {
     //creating fragment with QuizQuestion argument
     public static EvaluationFragment newInstance(int actualPoints, int maxPoints, String playerName) {
         Bundle bundle = new Bundle();
-        bundle.putString("player",playerName);
-        bundle.putInt("maxPoints",maxPoints);
-        bundle.putInt("actualPoints", actualPoints);
-        EvaluationFragment fragment =  new EvaluationFragment();
+        bundle.putString(PLAYER, playerName);
+        bundle.putInt(MAX_POINTS, maxPoints);
+        bundle.putInt(ACTUAL_POINTS, actualPoints);
+        EvaluationFragment fragment = new EvaluationFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
-            this.answerPoints=bundle.getInt("actualPoints");
-            this.maxPoints=bundle.getInt("maxPoints");
-            this.playerName=bundle.getString("player");
+            this.answerPoints = bundle.getInt(ACTUAL_POINTS);
+            this.maxPoints = bundle.getInt(MAX_POINTS);
+            this.playerName = bundle.getString(PLAYER);
         }
     }
 
@@ -69,18 +73,18 @@ public class EvaluationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.evaluation_fragment,container,false);
+        rootView = inflater.inflate(R.layout.evaluation_fragment, container, false);
         // setting up views
-        titleText=rootView.findViewById(R.id.evaluation_title_text);
-        evaluationText=rootView.findViewById(R.id.evaluation_text);
-        imageView=rootView.findViewById(R.id.evaluation_image_container);
+        titleText = rootView.findViewById(R.id.evaluation_title_text);
+        evaluationText = rootView.findViewById(R.id.evaluation_text);
+        imageView = rootView.findViewById(R.id.evaluation_image_container);
         // loading bundle arguments
         readBundle(getArguments());
         // scrolling down to remain the evaluation text visible
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.evaluation_container);
-        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        titleText.setText(playerName+", "+(answerPoints/(double)maxPoints)*100+"%, congrats");
-        imageView.setImageDrawable(getActivity().getDrawable(R.drawable.eight_thousanders));
+        ScrollView scroll = (ScrollView) rootView.findViewById(R.id.evaluation_scroll_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN), 150L);
+        // evaluating game
+        evaluateGame();
         return rootView;
     }
 
@@ -96,8 +100,26 @@ public class EvaluationFragment extends Fragment {
 
     }
 
-    private void evaluateGame(){
-        double result=answerPoints/(double)maxPoints*100;
-
+    private void evaluateGame() {
+        // formatting result
+        String resultToDisplay = String.format("%.2f", (answerPoints / (double) maxPoints) * 100);
+        String titleToDisplay = String.format(getResources().getString(R.string.evaluation_title),playerName,answerPoints,maxPoints,resultToDisplay);
+        titleText.setText(titleToDisplay);
+        imageView.setImageDrawable(getActivity().getDrawable(R.drawable.eight_thousanders));
+        double result = answerPoints / (double) maxPoints * 100;
+        // displaying result dependent message and background image
+        if (result < 25) {
+            evaluationText.setText(R.string.try_again);
+            // own picture
+            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.rookie));
+        } else if (result < 81) {
+            evaluationText.setText(R.string.not_bad);
+            // By Sonia Sevilla - Own work, CC0, https://commons.wikimedia.org/w/index.php?curid=30938215
+            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.rock_climber));
+        } else {
+            evaluationText.setText(R.string.awesome);
+            // By Mountaineer - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=5730546
+            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.mountaineer));
+        }
     }
 }

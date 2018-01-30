@@ -2,6 +2,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_default">16dp</dimen>
     <dimen name="activity_vertical_default">16dp</dimen>
+    <!-- dimens for fragments -->
     <dimen name="question_title_margin_bottom">16dp</dimen>
     <dimen name="question_title_margin_end">32dp</dimen>
     <dimen name="question_title_padding_horizontal">16dp</dimen>
@@ -13,4 +14,8 @@
     <dimen name="bottom_ruler">48dp</dimen>
     <dimen name="edit_text_margin_bottom">46dp</dimen>
     <dimen name="edit_text_padding_vertical">10dp</dimen>
+    <!-- Main Activity dimens -->
+    <dimen name="button_text_size">13sp</dimen>
+    <dimen name="main_activity_navbar_height">48dp</dimen>
+    <dimen name="main_activity_inner_navbar_height">36dp</dimen>
 </resources>

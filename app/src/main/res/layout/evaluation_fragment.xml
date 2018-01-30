@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/evaluation_container"
-    >
-    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/evaluation_image_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:focusedByDefault="true"
-        >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/evaluation_image_container"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/ic_home_black_24dp" />
+        android:scaleType="centerCrop"
+        tools:src="@drawable/elcap" />
 
+    <ScrollView
+        android:id="@+id/evaluation_scroll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/evaluation_title_text"
-                android:layout_alignBottom="@id/evaluation_image_container"
+                style="@style/quiz_question_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/quiz_question_title"
                 tools:text="Test question about question" />
 
-
-        </RelativeLayout>
-        <TextView
-            android:id="@+id/evaluation_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="Sample evaluation"
-            android:padding="16dp"
-            style="@style/Base.TextAppearance.AppCompat.Body1"/>
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/evaluation_text"
+                style="@style/edit_eval_text_style_root"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/sample_text"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/bottom_ruler" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

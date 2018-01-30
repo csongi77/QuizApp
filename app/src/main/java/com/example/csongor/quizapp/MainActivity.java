@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int LAST_QUESTION_STATE = 4;
     public static final int EVALUATION_STATE = 5;
 
-    // variable fields
+    // variable declarations
     private int gameState;
     private int gamePoints;
     private int maxPoints;
@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView rightButton, leftButton;
     private List<QuizQuestion> questions;
     private Iterator<QuizQuestion> questionIterator;
-    Fragment fragment;
+    private Fragment fragment;
     private String playerName;
-    AlertDialog.Builder alertDialogBuilder;
-    AlertDialog alertDialog;
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
 
 
     @Override
@@ -64,14 +64,13 @@ public class MainActivity extends AppCompatActivity {
         leftButton.setEnabled(false);
         // setting up listeners to buttons
         rightButton.setOnClickListener(v -> {
-            Log.e("Main/ onStart", "------------CLICKED------------");
             doQuestionFragment();
         });
     }
 
 
     /**
-     * Take care of finishing the game as appropriate.
+     * Taking care of finishing the game as appropriate.
      * If user presses the back button, it will get an alert to ensure that the game will be ended
      */
     @Override
@@ -102,31 +101,22 @@ public class MainActivity extends AppCompatActivity {
             Question question;
             //get the next question
             question = (Question) questionIterator.next();
-            Log.e("mainActivity: ", "the question type is: " + question.getQuestionType());
             // depending the question type the appropriate fragment will be used.
             // development suggestion: make this using Chain of Responsibility pattern to avoid multiple if statements
             if (question.getQuestionType() == QuizQuestion.STRING_QUESTION) {
                 fragment = StringQuestionFragment.newInstance(question);
-                Log.e("mainActivity: ", "stringQuestion fragment has instantinated: ");
             } else if (question.getQuestionType() == QuizQuestion.RADIO_QUESTION) {
                 fragment = RadioQuestionFragment.newInstance(question);
-                Log.e("mainActivity: ", "radioQuestion fragment has instantinated: ");
             } else if (question.getQuestionType() == QuizQuestion.CHECKBOX_QUESTION) {
                 fragment = CheckboxQuestionFragment.newInstance(question);
-                Log.e("mainActivity: ", "checkBox fragment has instantinated: ");
             } else {
                 fragment = new Fragment();
             }
             // Replace whatever is in the fragment_container view with this fragment
             transaction.replace(R.id.fragment_container, fragment);
-            // Add the transaction to the back stack if you want to step back to previous question.
-            // This is depending on game type. If later you want to develop undo option, this would be
-            // the entry point for it
-            //transaction.addToBackStack(null);
             transaction.commit();
-
         }
-        // change state if there are no more questions
+        // change state if there are no more questions, evaluation will be available
         if (!questionIterator.hasNext()) {
             setGameState(LAST_QUESTION_STATE);
             // enabling evaluation button and disabling the next question button
@@ -134,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
             rightButton.setEnabled(false);
             leftButton.setClickable(true);
             leftButton.setEnabled(true);
+            // setting up clickListener for the left button
             leftButton.setOnClickListener(v -> {
                 fragmentManager.beginTransaction().detach(fragment).commitNow();
                 evaluate();
@@ -142,10 +133,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // After finishing game the activity displays the result
+    // After finishing game the activity displays the result via Toast (as it was required) and evaluation fragment
     private void evaluate() {
-        Toast.makeText(this, "Your points: " + this.gamePoints, Toast.LENGTH_SHORT).show();
-        Log.d("evaluate", "maxpoints: " + maxPoints + ", playerpoints: " + gamePoints + " -------->");
+        Toast.makeText(this, getResources().getString(R.string.your_points) + this.gamePoints, Toast.LENGTH_SHORT).show();
         fragment = EvaluationFragment.newInstance(gamePoints, maxPoints, playerName);
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commitNow();
     }
@@ -185,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * dummy List with quiz questions. Later it will delegated into quiz question list factory
-     * Maybe a Content provider could do this.
+     * Maybe a Content provider could do this?...
      */
     private List<QuizQuestion> getQuizQuestions() {
         //creating quiz question list
@@ -195,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
         AnswerOption answerOption_1_1 = new Answer("Edward Whymper", true);
         List<AnswerOption> answerOptions_1 = new ArrayList<AnswerOption>();
         answerOptions_1.add(answerOption_1_1);
+        // By Photo: chil, on Camptocamp.orgDerivative work:Zacharie Grossen - Camptocamp.org, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=16791896
         QuizQuestion question_1 = new Question(R.drawable.matterhorn, "Who climbed first the Matterhorn?", answerOptions_1);
 
 
@@ -202,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         AnswerOption answerOption_1a_1 = new Answer("Reinhold Messner", true);
         List<AnswerOption> answerOptions_1a = new ArrayList<AnswerOption>();
         answerOptions_1a.add(answerOption_1a_1);
+        // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
         QuizQuestion question_1a = new Question(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without support oxygen?", answerOptions_1a);
 
         // second question (Radio question)
@@ -214,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_2.add(answerOption_2_2);
         answerOptions_2.add(answerOption_2_3);
         answerOptions_2.add(answerOption_2_4);
+        //By Mike Murphy, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=295635
         QuizQuestion question_2 = new Question(R.drawable.elcap, "What is the name of Yosemite's favourite granite Monolith?", answerOptions_2);
 
 
@@ -227,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_3.add(answerOption_3_2);
         answerOptions_3.add(answerOption_3_3);
         answerOptions_3.add(answerOption_3_4);
+        //By Uwe Gille (talk · contribs) - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=121222
         QuizQuestion question_3 = new Question(R.drawable.everest, "Who climbed first time the Mount Everest?", answerOptions_3);
 
         //fourth question
@@ -239,21 +233,32 @@ public class MainActivity extends AppCompatActivity {
         answerOptions_3a.add(answerOption_3a_2);
         answerOptions_3a.add(answerOption_3a_3);
         answerOptions_3a.add(answerOption_3a_4);
+        // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
         QuizQuestion question_3a = new Question(R.drawable.eight_thousanders, "Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?", answerOptions_3a);
 
+        // fifth question (Radio question)
+        AnswerOption answerOption_5_1 = new Answer("Kurt Diemberger", false);
+        AnswerOption answerOption_5_2 = new Answer("Pete Shoening", false);
+        AnswerOption answerOption_5_3 = new Answer("Hermann Buhl", true);
+        AnswerOption answerOption_5_4 = new Answer("Heinrich Harrer", false);
+        List<AnswerOption> answerOptions_5 = new ArrayList<AnswerOption>();
+        answerOptions_5.add(answerOption_5_1);
+        answerOptions_5.add(answerOption_5_2);
+        answerOptions_5.add(answerOption_5_3);
+        answerOptions_5.add(answerOption_5_4);
+        //By Tahsin Anwar Ali - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=40616492
+        QuizQuestion question_5 = new Question(R.drawable.nanga_parbat, "The first ascent of Nanga Parbat in 1953 is achieved in solo! Who did it?", answerOptions_5);
 
         //adding questions to list
-    //    questionList.add(question_1);
+        questionList.add(question_1);
         //questionList.add(question_1a);
-     //   questionList.add(question_2);
+        questionList.add(question_2);
         questionList.add(question_3);
         questionList.add(question_3a);
+        questionList.add(question_5);
 
-        // questionList.add(question_4);
 
-        for (int i = 0; i < questionList.size(); i++) {
-            Log.e("main", "question no." + i + ". type: " + questionList.get(i).getQuestionType());
-        }
+
         //returning the list of questions
         return questionList;
     }

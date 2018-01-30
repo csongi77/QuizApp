@@ -28,7 +28,6 @@
                 style="@style/quiz_question_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/string_question_image_container"
                 tools:text="@string/test_title" />
 
             <EditText

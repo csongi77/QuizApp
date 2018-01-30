@@ -87,16 +87,10 @@ public class Question implements QuizQuestion {
     @Override
     public int getMaxPoints() {
         int toReturn=0;
-       /* for (AnswerOption answer:answerOptions
+       for (AnswerOption answer:answerOptions
              ) {
             if(answer.isRightAnswer()) toReturn++;
-        }*/
-       for(int i=0; i<answerOptions.size(); i++){
-           if(answerOptions.get(i).isRightAnswer()){
-               toReturn++;
-           }
-       }
-        Log.d("question points: ",toReturn+"--------------------->");
+        }
         return toReturn;
     }
 

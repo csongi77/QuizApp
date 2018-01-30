@@ -137,7 +137,7 @@ public class CheckboxQuestionFragment extends Fragment {
         }
 //        if (answerPoints > 0)
         if (answerPoints == question.getMaxPoints())
-            ((MainActivity) getActivity()).addPoints(answerPoints);
+            ((MainActivity) getActivity()).addPoints(1);
         /*for (CheckBox checkbox:checkBoxes
              ) {checkbox=null;
 
