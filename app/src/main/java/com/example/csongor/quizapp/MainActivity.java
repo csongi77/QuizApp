@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // assigning buttons. Later it's easier to use these variable names
-        rightButton = (TextView) findViewById(R.id.right_button);
-        leftButton = (TextView) findViewById(R.id.left_button);
+        rightButton = findViewById(R.id.right_button);
+        leftButton = findViewById(R.id.left_button);
         leftButton.setEnabled(false);
         // setting up listeners to buttons
         rightButton.setOnClickListener(v -> {
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             transaction = fragmentManager.beginTransaction();
             QuizQuestion question;
             //get the next question
-            question = (QuizQuestion) questionIterator.next();
+            question = questionIterator.next();
             // depending the question type the appropriate fragment will be used.
             // development suggestion: make this using Chain of Responsibility pattern to avoid multiple if statements
             if (question.getQuestionType() == QuizQuestion.STRING_QUESTION) {
@@ -141,11 +141,6 @@ public class MainActivity extends AppCompatActivity {
     //set new gameState
     public void setGameState(int gameState) {
         this.gameState = gameState;
-    }
-
-    // get player name
-    public String getPlayerName() {
-        return playerName;
     }
 
     // set player name

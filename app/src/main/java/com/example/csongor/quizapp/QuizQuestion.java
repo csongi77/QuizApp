@@ -85,7 +85,8 @@ public class QuizQuestion implements Serializable {
 
     /**
      * @return the maximum points (for instance CheckBox questions can worth 2-4 points depending on
-     *  the number of right answer options)
+     *  the number of right answer options) It is necessary at evaluation to compare right and only right
+     *  answers
      */
 
     public int getMaxPoints() {

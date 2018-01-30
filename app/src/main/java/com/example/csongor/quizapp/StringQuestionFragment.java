@@ -89,13 +89,13 @@ public class StringQuestionFragment extends Fragment {
         answerText=rootView.findViewById(R.id.player_string_answer);
         readBundle(getArguments());
         // displaying the image and question
-        questionText.setText(((QuizQuestion)question).getQuestion());
-        Drawable image= getActivity().getDrawable(((QuizQuestion) question).getImageResourceId());
+        questionText.setText(question.getQuestion());
+        Drawable image= getActivity().getDrawable(question.getImageResourceId());
         imageView.setImageDrawable(image);
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
         // scrolling down to make the editText field visible
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_scroll_container);
+        ScrollView scroll= rootView.findViewById(R.id.string_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
     }
@@ -114,7 +114,7 @@ public class StringQuestionFragment extends Fragment {
         /**
          * Checking the answer. If the string answer is the same then the player gets 1 point
          */
-        if(playerAnswer.equals(((QuizQuestion)question).getAnswerOptions().get(0).getAnswerText().toLowerCase())){
+        if(playerAnswer.equals(question.getAnswerOptions().get(0).getAnswerText().toLowerCase())){
             answerPoints=1;
             ((MainActivity)getActivity()).addPoints(answerPoints);
         }else{

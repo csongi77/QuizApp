@@ -51,11 +51,12 @@ public class WelcomeFragment extends Fragment {
         welcomeText=rootView.findViewById(R.id.string_question_text);
         imageView=rootView.findViewById(R.id.string_question_image_container);
         playerNameText=rootView.findViewById(R.id.player_string_answer);
-        // setting up appropriate text
+        // setting up appropriate text and image
         playerNameText.setHint(R.string.name_hint);
         welcomeText.setText(R.string.welcome_title);
         Drawable image= getActivity().getDrawable(R.drawable.p1020310);
         imageView.setImageDrawable(image);
+        // scroll down if in order to get all text visible
         ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
@@ -69,7 +70,7 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        // setting player name
+        // setting player name at MainActivity
         playerName=playerNameText.getText().toString();
         rootView=null;
         ((MainActivity)getActivity()).setPlayerName(playerName);

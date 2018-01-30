@@ -86,22 +86,22 @@ public class RadioQuestionFragment extends Fragment {
         readBundle(getArguments());
         questionText = rootView.findViewById(R.id.radio_question_text);
         imageView = rootView.findViewById(R.id.radio_question_image_container);
-        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_0));
-        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_1));
-        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_2));
-        radioButtons.add((RadioButton) rootView.findViewById(R.id.radio_answer_option_3));
+        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_0));
+        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_1));
+        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_2));
+        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_3));
 
 
-        questionText.setText(((QuizQuestion) question).getQuestion());
-        Drawable image = getActivity().getDrawable(((QuizQuestion) question).getImageResourceId());
+        questionText.setText(question.getQuestion());
+        Drawable image = getActivity().getDrawable(question.getImageResourceId());
         for (int i=0; i<radioButtons.size(); i++){
-            radioButtons.get(i).setText(((QuizQuestion) question).getAnswerOptions().get(i).getAnswerText());
+            radioButtons.get(i).setText(question.getAnswerOptions().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.radio_scroll_container);
+        ScrollView scroll= rootView.findViewById(R.id.radio_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
     }
@@ -119,13 +119,12 @@ public class RadioQuestionFragment extends Fragment {
         // in this, and only this case answer points raises by 1. Because only one right answer is
         // possible, it returns only 1 point for the right answered question
         for (int i = 0; i < radioButtons.size(); i++) {
-            if (radioButtons.get(i).isChecked() & ((QuizQuestion) question).getAnswerOptions().get(i).isRightAnswer()) {
+            if (radioButtons.get(i).isChecked() & question.getAnswerOptions().get(i).isRightAnswer()) {
                 answerPoints++;
             }
         }
         ((MainActivity) getActivity()).addPoints(answerPoints);
         rootView = null;
-        Log.e("RadioQFragment", " fragment onPause executed ---->");
     }
 
 

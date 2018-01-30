@@ -77,7 +77,7 @@ public class EvaluationFragment extends Fragment {
         // loading bundle arguments
         readBundle(getArguments());
         // scrolling down to remain the evaluation text visible
-        ScrollView scroll = (ScrollView) rootView.findViewById(R.id.evaluation_scroll_container);
+        ScrollView scroll = rootView.findViewById(R.id.evaluation_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN), 150L);
         // evaluating game
         evaluateGame();
@@ -107,7 +107,7 @@ public class EvaluationFragment extends Fragment {
         if (result < 25) {
             evaluationText.setText(R.string.try_again);
             // own picture
-            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.rookie));
+            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.rookie2));
         } else if (result < 81) {
             evaluationText.setText(R.string.not_bad);
             // By Sonia Sevilla - Own work, CC0, https://commons.wikimedia.org/w/index.php?curid=30938215

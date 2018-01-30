@@ -37,7 +37,6 @@ public class CheckboxQuestionFragment extends Fragment {
         bundle.putSerializable(QUESTION, quizQuestion);
         CheckboxQuestionFragment fragment = new CheckboxQuestionFragment();
         fragment.setArguments(bundle);
-        Log.e("CheckboxQFragment", " fragment instantinated ---->");
         return fragment;
     }
 
@@ -87,10 +86,10 @@ public class CheckboxQuestionFragment extends Fragment {
         questionText = rootView.findViewById(R.id.checkbox_question_text);
         imageView = rootView.findViewById(R.id.checkbox_question_image_container);
         // adding the checkbox variables into arraylist for the evaluation
-        checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_0));
-        checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_1));
-        checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_2));
-        checkBoxes.add((CheckBox) rootView.findViewById(R.id.checkbox_answer_option_3));
+        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_0));
+        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_1));
+        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_2));
+        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_3));
         readBundle(getArguments());
         questionText.setText(question.getQuestion());
         Drawable image = getActivity().getDrawable(question.getImageResourceId());
@@ -103,7 +102,7 @@ public class CheckboxQuestionFragment extends Fragment {
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
-       ScrollView scroll=(ScrollView)rootView.findViewById(R.id.checkbox_scroll_container);
+       ScrollView scroll= rootView.findViewById(R.id.checkbox_scroll_container);
        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
         return rootView;
     }
@@ -127,9 +126,9 @@ public class CheckboxQuestionFragment extends Fragment {
         * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
         */
        for (int i = 0; i < checkBoxes.size(); i++) {
-            if (checkBoxes.get(i).isChecked() & ((QuizQuestion) question).getAnswerOptions().get(i).isRightAnswer()) {
+            if (checkBoxes.get(i).isChecked() & question.getAnswerOptions().get(i).isRightAnswer()) {
                 answerPoints++;
-            } else if (checkBoxes.get(i).isChecked() && !(((QuizQuestion) question).getAnswerOptions().get(i).isRightAnswer())) {
+            } else if (checkBoxes.get(i).isChecked() && !(question.getAnswerOptions().get(i).isRightAnswer())) {
                 answerPoints--;
             }
         }
