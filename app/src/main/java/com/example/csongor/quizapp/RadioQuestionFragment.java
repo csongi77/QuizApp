@@ -95,7 +95,7 @@ public class RadioQuestionFragment extends Fragment {
         questionText.setText(question.getQuestion());
         Drawable image = getActivity().getDrawable(question.getImageResourceId());
         for (int i=0; i<radioButtons.size(); i++){
-            radioButtons.get(i).setText(question.getAnswerOptions().get(i).getAnswerText());
+            radioButtons.get(i).setText(question.getAnswers().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
@@ -119,7 +119,7 @@ public class RadioQuestionFragment extends Fragment {
         // in this, and only this case answer points raises by 1. Because only one right answer is
         // possible, it returns only 1 point for the right answered question
         for (int i = 0; i < radioButtons.size(); i++) {
-            if (radioButtons.get(i).isChecked() & question.getAnswerOptions().get(i).isRightAnswer()) {
+            if (radioButtons.get(i).isChecked() & question.getAnswers().get(i).isRightAnswer()) {
                 answerPoints++;
             }
         }

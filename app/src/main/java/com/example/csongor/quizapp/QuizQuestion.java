@@ -15,21 +15,21 @@ public class QuizQuestion implements Serializable {
 
     private int questionType, imageResourceId;
     private String question;
-    private List<AnswerOption> answerOptions;
+    private List<Answer> answers;
 
 
     /**
      * @param imageResourceId image in drawable to show
      * @param question        the question that shold be displayed
-     * @param answerOptions   the possible answers. The AnswerOption List will determine the QuizQuestionType:
+     * @param answers   the possible answers. The AnswerOption List will determine the QuizQuestionType:
      *                        1: The list has only 1 and only 1 AnswerOption -> STRING_QUESTION
      *                        2: The list has 4 AnswerOption with 1 rightAnswer -> RADIO_QUESTION
      *                        3: The list has 4 AnswerOption with multiple rightAnswer -> CHECKBOX_QUESTION
      */
-    public QuizQuestion(int imageResourceId, String question, List<AnswerOption> answerOptions) {
+    public QuizQuestion(int imageResourceId, String question, List<Answer> answers) {
         this.imageResourceId = imageResourceId;
         this.question = question;
-        this.answerOptions = answerOptions;
+        this.answers = answers;
         this.questionType = setupType();
     }
 
@@ -40,7 +40,7 @@ public class QuizQuestion implements Serializable {
      */
     private int setupType() {
         int rightAnswers = 0;
-        for (AnswerOption answer : answerOptions
+        for (Answer answer : answers
                 ) {
             if (answer.isRightAnswer()) {
                 rightAnswers++;
@@ -48,7 +48,7 @@ public class QuizQuestion implements Serializable {
         }
         if (rightAnswers > 1) {
             return CHECKBOX_QUESTION;
-        } else if (answerOptions.size() > 1) {
+        } else if (answers.size() > 1) {
             return RADIO_QUESTION;
         } else return STRING_QUESTION;
     }
@@ -71,8 +71,8 @@ public class QuizQuestion implements Serializable {
     /**
      * @return the list of AnswerOptions.In STRING_QUESTION type this string is the right answer
      */
-    public List<AnswerOption> getAnswerOptions() {
-        return answerOptions;
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
 
@@ -91,7 +91,7 @@ public class QuizQuestion implements Serializable {
 
     public int getMaxPoints() {
         int toReturn=0;
-       for (AnswerOption answer:answerOptions
+       for (Answer answer: answers
              ) {
             if(answer.isRightAnswer()) toReturn++;
         }

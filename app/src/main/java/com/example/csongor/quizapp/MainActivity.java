@@ -166,26 +166,26 @@ public class MainActivity extends AppCompatActivity {
         List<QuizQuestion> questionList = new ArrayList<QuizQuestion>();
 
         // first question (String question)
-        AnswerOption answerOption_1_1 = new Answer("Edward Whymper", true);
-        List<AnswerOption> answerOptions_1 = new ArrayList<AnswerOption>();
+        Answer answerOption_1_1 = new Answer("Edward Whymper", true);
+        List<Answer> answerOptions_1 = new ArrayList<Answer>();
         answerOptions_1.add(answerOption_1_1);
         // By Photo: chil, on Camptocamp.orgDerivative work:Zacharie Grossen - Camptocamp.org, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=16791896
         QuizQuestion question_1 = new QuizQuestion(R.drawable.matterhorn, "Who climbed first the Matterhorn?", answerOptions_1);
 
 
         // first.A question (String question)
-        AnswerOption answerOption_1a_1 = new Answer("Reinhold Messner", true);
-        List<AnswerOption> answerOptions_1a = new ArrayList<AnswerOption>();
+        Answer answerOption_1a_1 = new Answer("Reinhold Messner", true);
+        List<Answer> answerOptions_1a = new ArrayList<Answer>();
         answerOptions_1a.add(answerOption_1a_1);
         // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
         QuizQuestion question_1a = new QuizQuestion(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without support oxygen?", answerOptions_1a);
 
         // second question (Radio question)
-        AnswerOption answerOption_2_1 = new Answer("El Capitan", true);
-        AnswerOption answerOption_2_2 = new Answer("El Jefe", false);
-        AnswerOption answerOption_2_3 = new Answer("The Captain", false);
-        AnswerOption answerOption_2_4 = new Answer("The Boss", false);
-        List<AnswerOption> answerOptions_2 = new ArrayList<AnswerOption>();
+        Answer answerOption_2_1 = new Answer("El Capitan", true);
+        Answer answerOption_2_2 = new Answer("El Jefe", false);
+        Answer answerOption_2_3 = new Answer("The Captain", false);
+        Answer answerOption_2_4 = new Answer("The Boss", false);
+        List<Answer> answerOptions_2 = new ArrayList<Answer>();
         answerOptions_2.add(answerOption_2_1);
         answerOptions_2.add(answerOption_2_2);
         answerOptions_2.add(answerOption_2_3);
@@ -195,11 +195,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //third question
-        AnswerOption answerOption_3_1 = new Answer("Tenzing Norgay", true);
-        AnswerOption answerOption_3_2 = new Answer("Hermann Buhl", false);
-        AnswerOption answerOption_3_3 = new Answer("Sir Edmund Hillary", true);
-        AnswerOption answerOption_3_4 = new Answer("Reinhold Messner", false);
-        List<AnswerOption> answerOptions_3 = new ArrayList<AnswerOption>();
+        Answer answerOption_3_1 = new Answer("Tenzing Norgay", true);
+        Answer answerOption_3_2 = new Answer("Hermann Buhl", false);
+        Answer answerOption_3_3 = new Answer("Sir Edmund Hillary", true);
+        Answer answerOption_3_4 = new Answer("Reinhold Messner", false);
+        List<Answer> answerOptions_3 = new ArrayList<Answer>();
         answerOptions_3.add(answerOption_3_1);
         answerOptions_3.add(answerOption_3_2);
         answerOptions_3.add(answerOption_3_3);
@@ -208,11 +208,11 @@ public class MainActivity extends AppCompatActivity {
         QuizQuestion question_3 = new QuizQuestion(R.drawable.everest, "Who climbed first time the Mount Everest?", answerOptions_3);
 
         //fourth question
-        AnswerOption answerOption_3a_1 = new Answer("Andes", false);
-        AnswerOption answerOption_3a_2 = new Answer("Himalayas", true);
-        AnswerOption answerOption_3a_3 = new Answer("Karakoram", true);
-        AnswerOption answerOption_3a_4 = new Answer("North American Cordillera", false);
-        List<AnswerOption> answerOptions_3a = new ArrayList<AnswerOption>();
+        Answer answerOption_3a_1 = new Answer("Andes", false);
+        Answer answerOption_3a_2 = new Answer("Himalayas", true);
+        Answer answerOption_3a_3 = new Answer("Karakoram", true);
+        Answer answerOption_3a_4 = new Answer("North American Cordillera", false);
+        List<Answer> answerOptions_3a = new ArrayList<Answer>();
         answerOptions_3a.add(answerOption_3a_1);
         answerOptions_3a.add(answerOption_3a_2);
         answerOptions_3a.add(answerOption_3a_3);
@@ -221,11 +221,11 @@ public class MainActivity extends AppCompatActivity {
         QuizQuestion question_3a = new QuizQuestion(R.drawable.eight_thousanders, "Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?", answerOptions_3a);
 
         // fifth question (Radio question)
-        AnswerOption answerOption_5_1 = new Answer("Kurt Diemberger", false);
-        AnswerOption answerOption_5_2 = new Answer("Pete Shoening", false);
-        AnswerOption answerOption_5_3 = new Answer("Hermann Buhl", true);
-        AnswerOption answerOption_5_4 = new Answer("Heinrich Harrer", false);
-        List<AnswerOption> answerOptions_5 = new ArrayList<AnswerOption>();
+        Answer answerOption_5_1 = new Answer("Kurt Diemberger", false);
+        Answer answerOption_5_2 = new Answer("Pete Shoening", false);
+        Answer answerOption_5_3 = new Answer("Hermann Buhl", true);
+        Answer answerOption_5_4 = new Answer("Heinrich Harrer", false);
+        List<Answer> answerOptions_5 = new ArrayList<Answer>();
         answerOptions_5.add(answerOption_5_1);
         answerOptions_5.add(answerOption_5_2);
         answerOptions_5.add(answerOption_5_3);

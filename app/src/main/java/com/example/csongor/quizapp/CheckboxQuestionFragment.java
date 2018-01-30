@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,7 @@ public class CheckboxQuestionFragment extends Fragment {
         Drawable image = getActivity().getDrawable(question.getImageResourceId());
         // displaying the questions
         for (int i = 0; i < checkBoxes.size(); i++) {
-            checkBoxes.get(i).setText(question.getAnswerOptions().get(i).getAnswerText());
+            checkBoxes.get(i).setText(question.getAnswers().get(i).getAnswerText());
         }
         imageView.setImageDrawable(image);
         rootView.clearFocus();
@@ -126,9 +125,9 @@ public class CheckboxQuestionFragment extends Fragment {
         * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
         */
        for (int i = 0; i < checkBoxes.size(); i++) {
-            if (checkBoxes.get(i).isChecked() & question.getAnswerOptions().get(i).isRightAnswer()) {
+            if (checkBoxes.get(i).isChecked() & question.getAnswers().get(i).isRightAnswer()) {
                 answerPoints++;
-            } else if (checkBoxes.get(i).isChecked() && !(question.getAnswerOptions().get(i).isRightAnswer())) {
+            } else if (checkBoxes.get(i).isChecked() && !(question.getAnswers().get(i).isRightAnswer())) {
                 answerPoints--;
             }
         }

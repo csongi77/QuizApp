@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by csongor on 1/20/18.
  */
 
-public class Answer implements Serializable, AnswerOption {
+public class Answer implements Serializable {
     //private fields
     private String answerText;
     private boolean rightAnswer;
@@ -25,7 +25,6 @@ public class Answer implements Serializable, AnswerOption {
      * @return The String that must be shown at answer option in fragment.
      * Exception: If QuestionType is STRING_QUESTION, than this is the right answer.
      */
-    @Override
     public String getAnswerText() {
         return answerText;
     }
@@ -33,7 +32,6 @@ public class Answer implements Serializable, AnswerOption {
     /**
      * @return Wheter is this answer option is the right answer
      */
-    @Override
     public boolean isRightAnswer() {
         return rightAnswer;
     }
