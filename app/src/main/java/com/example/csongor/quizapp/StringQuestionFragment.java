@@ -99,14 +99,14 @@ public class StringQuestionFragment extends Fragment {
     }
 
 
+
     /**
-     * Called when the Fragment is no longer resumed.  This is generally
-     * tied to {@link Activity#onPause() Activity.onPause} of the containing
+     * Called when the Fragment is no longer started.  This is generally
+     * tied to {@link Activity#onStop() Activity.onStop} of the containing
      * Activity's lifecycle.
      */
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
         playerAnswer=((EditText)getActivity().findViewById(R.id.player_string_answer)).getEditableText().toString().toLowerCase();
         rootView=null;
         /**
@@ -118,5 +118,6 @@ public class StringQuestionFragment extends Fragment {
         }else{
             answerPoints=0;
         }
+        super.onStop();
     }
 }

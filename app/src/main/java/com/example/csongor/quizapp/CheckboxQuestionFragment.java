@@ -106,25 +106,17 @@ public class CheckboxQuestionFragment extends Fragment {
         return rootView;
     }
 
-
-
-    /**
-     * Called when the Fragment is no longer resumed.  This is generally
-     * tied to {@link Activity#onPause() Activity.onPause} of the containing
-     * Activity's lifecycle.
-     */
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
         /** Checking right answer. The loop goes through the checked buttons and the answer list.
-        * if both is true (checkBoxes.get(i) and answerOptions.get(i)) than the result is also true.
-        * in this, and only this case answer points raises by 1. If the answerOption is false but it
-        * was checked the answer points will be decreased to avoid getting points by selecting all
-        * possible answer options.
-        *  For example if player checks 2 correct and 1 wrong answer they get only 1 point
-        * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
-        */
-       for (int i = 0; i < checkBoxes.size(); i++) {
+         * if both is true (checkBoxes.get(i) and answerOptions.get(i)) than the result is also true.
+         * in this, and only this case answer points raises by 1. If the answerOption is false but it
+         * was checked the answer points will be decreased to avoid getting points by selecting all
+         * possible answer options.
+         *  For example if player checks 2 correct and 1 wrong answer they get only 1 point
+         * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
+         */
+        for (int i = 0; i < checkBoxes.size(); i++) {
             if (checkBoxes.get(i).isChecked() & question.getAnswers().get(i).isRightAnswer()) {
                 answerPoints++;
             } else if (checkBoxes.get(i).isChecked() && !(question.getAnswers().get(i).isRightAnswer())) {
@@ -133,5 +125,6 @@ public class CheckboxQuestionFragment extends Fragment {
         }
         if (answerPoints == question.getMaxPoints())
             ((MainActivity) getActivity()).addPoints(1);
+        super.onStop();
     }
 }

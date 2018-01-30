@@ -106,14 +106,9 @@ public class RadioQuestionFragment extends Fragment {
         return rootView;
     }
 
-    /**
-     * Called when the Fragment is no longer resumed.  This is generally
-     * tied to {@link Activity#onPause() Activity.onPause} of the containing
-     * Activity's lifecycle.
-     */
+
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
         // checking right answer. The loop goes through the checked buttons and the answer list.
         // if both is true (buttons[i] and answerOptions.get(i)) than the result is also true.
         // in this, and only this case answer points raises by 1. Because only one right answer is
@@ -125,8 +120,6 @@ public class RadioQuestionFragment extends Fragment {
         }
         ((MainActivity) getActivity()).addPoints(answerPoints);
         rootView = null;
+        super.onStop();
     }
-
-
-
 }
