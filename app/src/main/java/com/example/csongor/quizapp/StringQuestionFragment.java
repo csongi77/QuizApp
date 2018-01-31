@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 /**
  * Created by csongor on 1/22/18.
+ * Fragment for displaying single line EditText type questions
  */
 
 public class StringQuestionFragment extends Fragment {

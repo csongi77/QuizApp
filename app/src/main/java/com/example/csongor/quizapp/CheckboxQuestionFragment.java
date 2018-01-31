@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 /**
  * Created by csongor on 1/22/18.
+ * Fragment for displaying CheckBox type questions
  */
 
 public class CheckboxQuestionFragment extends Fragment {

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 /**
  * Created by csongor on 1/22/18.
+ * Fragment for displaying RadioButton type questions
  */
 
 public class RadioQuestionFragment extends Fragment {

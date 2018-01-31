@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 /**
  * Created by csongor on 1/23/18.
+ * Fragment to get player's name
  */
 
 public class WelcomeFragment extends Fragment {

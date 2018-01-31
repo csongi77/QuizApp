@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 /**
  * Created by csongor on 1/23/18.
+ * Game evaluation fragment
  */
 
 public class EvaluationFragment extends Fragment {
