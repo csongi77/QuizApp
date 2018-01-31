@@ -14,11 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     //game states
     public static final int IN_GAME_STATE = 0;
-    public static final int UNDO_STATE = 1;
-    public static final int UNDO_STACK_IS_EMPTY_STATE = 2;
-    public static final int REDO_STATE = 3;
-    public static final int LAST_QUESTION_STATE = 4;
-    public static final int EVALUATION_STATE = 5;
+    public static final int LAST_QUESTION_STATE = 1;
+    public static final int EVALUATION_STATE = 2;
 
     // variable declarations
     private int gameState;
@@ -158,87 +155,70 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * dummy List with quiz questions. Later it will delegated into quiz question list factory
-     * Maybe a Content provider could do this?...
+     * dummy List with quiz questions. Later it can implemented to get questions from an external
+     * DB via REST...
      */
     private List<QuizQuestion> getQuizQuestions() {
         //creating quiz question list
         List<QuizQuestion> questionList = new ArrayList<QuizQuestion>();
 
         // first question (String question)
-        Answer answerOption_1_1 = new Answer("Edward Whymper", true);
-        List<Answer> answerOptions_1 = new ArrayList<Answer>();
-        answerOptions_1.add(answerOption_1_1);
-        // By Photo: chil, on Camptocamp.orgDerivative work:Zacharie Grossen - Camptocamp.org, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=16791896
-        QuizQuestion question_1 = new QuizQuestion(R.drawable.matterhorn, "Who climbed first the Matterhorn?", answerOptions_1);
-
-
-        // first.A question (String question)
-        Answer answerOption_1a_1 = new Answer("Reinhold Messner", true);
-        List<Answer> answerOptions_1a = new ArrayList<Answer>();
-        answerOptions_1a.add(answerOption_1a_1);
-        // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
-        QuizQuestion question_1a = new QuizQuestion(R.drawable.eight_thousanders, "Who climbed first the Mount Everest without support oxygen?", answerOptions_1a);
+        // image By Photo: chil, on Camptocamp.orgDerivative work:Zacharie Grossen - Camptocamp.org, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=16791896
+        QuizQuestion question_1=QuizQuestionBuilder.getInstance()
+                .addImageResourceId(R.drawable.matterhorn)
+                .addQuestionText("Who climbed first the Matterhorn?")
+                .addAnswer("Edward Whymper",true)
+                .build();
 
         // second question (Radio question)
-        Answer answerOption_2_1 = new Answer("El Capitan", true);
-        Answer answerOption_2_2 = new Answer("El Jefe", false);
-        Answer answerOption_2_3 = new Answer("The Captain", false);
-        Answer answerOption_2_4 = new Answer("The Boss", false);
-        List<Answer> answerOptions_2 = new ArrayList<Answer>();
-        answerOptions_2.add(answerOption_2_1);
-        answerOptions_2.add(answerOption_2_2);
-        answerOptions_2.add(answerOption_2_3);
-        answerOptions_2.add(answerOption_2_4);
-        //By Mike Murphy, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=295635
-        QuizQuestion question_2 = new QuizQuestion(R.drawable.elcap, "What is the name of Yosemite's favourite granite Monolith?", answerOptions_2);
-
+        // image By Mike Murphy, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=295635
+        QuizQuestion question_2=QuizQuestionBuilder.getInstance()
+                .addImageResourceId(R.drawable.elcap)
+                .addQuestionText("What is the name of Yosemite's favourite granite Monolith?")
+                .addAnswer("El Capitan", true)
+                .addAnswer("El Jefe", false)
+                .addAnswer("The Captain", false)
+                .addAnswer("The Boss", false)
+                .build();
 
         //third question
-        Answer answerOption_3_1 = new Answer("Tenzing Norgay", true);
-        Answer answerOption_3_2 = new Answer("Hermann Buhl", false);
-        Answer answerOption_3_3 = new Answer("Sir Edmund Hillary", true);
-        Answer answerOption_3_4 = new Answer("Reinhold Messner", false);
-        List<Answer> answerOptions_3 = new ArrayList<Answer>();
-        answerOptions_3.add(answerOption_3_1);
-        answerOptions_3.add(answerOption_3_2);
-        answerOptions_3.add(answerOption_3_3);
-        answerOptions_3.add(answerOption_3_4);
         //By Uwe Gille (talk · contribs) - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=121222
-        QuizQuestion question_3 = new QuizQuestion(R.drawable.everest, "Who climbed first time the Mount Everest?", answerOptions_3);
+        QuizQuestion question_3=QuizQuestionBuilder.getInstance()
+                .addImageResourceId(R.drawable.everest)
+                .addQuestionText("Who climbed first time the Mount Everest?")
+                .addAnswer("Tenzing Norgay", true)
+                .addAnswer("Hermann Buhl", false)
+                .addAnswer("Sir Edmund Hillary", true)
+                .addAnswer("Reinhold Messner", false)
+                .build();
 
         //fourth question
-        Answer answerOption_3a_1 = new Answer("Andes", false);
-        Answer answerOption_3a_2 = new Answer("Himalayas", true);
-        Answer answerOption_3a_3 = new Answer("Karakoram", true);
-        Answer answerOption_3a_4 = new Answer("North American Cordillera", false);
-        List<Answer> answerOptions_3a = new ArrayList<Answer>();
-        answerOptions_3a.add(answerOption_3a_1);
-        answerOptions_3a.add(answerOption_3a_2);
-        answerOptions_3a.add(answerOption_3a_3);
-        answerOptions_3a.add(answerOption_3a_4);
         // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
-        QuizQuestion question_3a = new QuizQuestion(R.drawable.eight_thousanders, "Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?", answerOptions_3a);
+        QuizQuestion question_4=QuizQuestionBuilder.getInstance()
+                .addImageResourceId(R.drawable.eight_thousanders)
+                .addQuestionText("Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?")
+                .addAnswer("Andes", false)
+                .addAnswer("Himalayas", true)
+                .addAnswer("Karakoram", true)
+                .addAnswer("North American Cordillera", false)
+                .build();
 
         // fifth question (Radio question)
-        Answer answerOption_5_1 = new Answer("Kurt Diemberger", false);
-        Answer answerOption_5_2 = new Answer("Pete Shoening", false);
-        Answer answerOption_5_3 = new Answer("Hermann Buhl", true);
-        Answer answerOption_5_4 = new Answer("Heinrich Harrer", false);
-        List<Answer> answerOptions_5 = new ArrayList<Answer>();
-        answerOptions_5.add(answerOption_5_1);
-        answerOptions_5.add(answerOption_5_2);
-        answerOptions_5.add(answerOption_5_3);
-        answerOptions_5.add(answerOption_5_4);
         //By Tahsin Anwar Ali - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=40616492
-        QuizQuestion question_5 = new QuizQuestion(R.drawable.nanga_parbat, "The first ascent of Nanga Parbat in 1953 is achieved in solo! Who did it?", answerOptions_5);
+        QuizQuestion question_5=QuizQuestionBuilder.getInstance()
+                .addImageResourceId(R.drawable.nanga_parbat)
+                .addQuestionText("The first ascent of Nanga Parbat in 1953 is achieved in solo! Who did it?")
+                .addAnswer("Heinrich Harrer", false)
+                .addAnswer("Pete Schoening", false)
+                .addAnswer("Hermann Buhl", true)
+                .addAnswer("Kurt Diemberger", false)
+                .build();
 
         //adding questions to list
         questionList.add(question_1);
-        //questionList.add(question_1a);
         questionList.add(question_2);
         questionList.add(question_3);
-        questionList.add(question_3a);
+        questionList.add(question_4);
         questionList.add(question_5);
 
         //returning the list of questions
