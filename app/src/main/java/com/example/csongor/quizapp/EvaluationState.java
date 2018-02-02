@@ -4,9 +4,16 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.widget.ShareDialog;
 
 /**
  * Created by csongor on 2/2/18.
@@ -37,7 +44,18 @@ class EvaluationState implements GameState {
      */
     @Override
     public void doRightButtonAction() {
-        // TODO publish on facebook
+       ViewGroup vg=(ViewGroup)mainActivity.findViewById(R.id.fragment_container);
+        vg.setDrawingCacheEnabled(true);
+        Bitmap bitmap = Bitmap.createBitmap(vg.getDrawingCache());
+        vg.setDrawingCacheEnabled(false);
+        SharePhoto sharePhoto = new SharePhoto.Builder()
+                .setBitmap(bitmap)
+                .build();
+        ShareContent shareContent = new ShareMediaContent.Builder()
+                .addMedium(sharePhoto)
+                .build();
+        ShareDialog dialog = new ShareDialog(mainActivity);
+        dialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
     }
 
     /**
