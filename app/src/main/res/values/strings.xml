@@ -23,5 +23,7 @@
     <string name="try_again">Thank you for the game, I think you should try again</string>
     <string name="not_bad">Not bad, after some practising you\'ll be pro!</string>
     <string name="awesome">Woooow, you are a pro climber, aren\'t you?</string>
+    <string name="publish">Publish your result</string>
+    <string name="reset">Restart</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.example.csongor.quizapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -12,21 +13,16 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //game states
-    public static final int IN_GAME_STATE = 0;
-    public static final int LAST_QUESTION_STATE = 1;
-    public static final int EVALUATION_STATE = 2;
 
     // variable declarations
-    private int gameState;
     private int gamePoints;
     private int maxPoints;
+    private GameState gameState;
     private android.support.v4.app.FragmentManager fragmentManager;
-    private android.support.v4.app.FragmentTransaction transaction;
     private TextView rightButton, leftButton;
     private List<QuizQuestion> questions;
     private Iterator<QuizQuestion> questionIterator;
-    private Fragment fragment;
+    private Fragment currentFragment;
     private String playerName;
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
@@ -37,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // set up default game state
-        gameState = IN_GAME_STATE;
+        gameState=InGameState.getInstance(this);
         // loading question list and the iterator for it
         questions = getQuizQuestions();
         questionIterator = questions.iterator();
         // getting the maximum available point values for the game
         maxPoints=questions.size();
-        //setting up fragment manager
+        //setting up currentFragment manager
         fragmentManager = MainActivity.this.getSupportFragmentManager();
-        fragment = new WelcomeFragment();
+        currentFragment = new WelcomeFragment();
         // show welcome screen
-        fragmentManager.beginTransaction().add(R.id.fragment_container, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_container, currentFragment).commit();
     }
 
     @Override
@@ -59,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
         leftButton.setEnabled(false);
         // setting up listeners to buttons
         rightButton.setOnClickListener(v -> {
-            doQuestionFragment();
+            gameState.doRightButtonAction();
+        });
+        leftButton.setOnClickListener(v -> {
+            gameState.doLeftButtonAction();
         });
     }
 
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // alert dialog declaration if it's not end game state...
-        if (gameState != EVALUATION_STATE) {
+        if (gameState.getClass()!=EvaluationState.class) {
             alertDialogBuilder = new AlertDialog.Builder(this);
             alertDialog = alertDialogBuilder.setTitle(R.string.exit_header)
                     .setMessage(R.string.exit_alert)
@@ -89,55 +88,42 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    // method for creating fragments for the questions
-    private void doQuestionFragment() {
-        if (this.gameState != LAST_QUESTION_STATE) {
-            transaction = fragmentManager.beginTransaction();
-            QuizQuestion question;
-            //get the next question
-            question = questionIterator.next();
-            // depending the question type the appropriate fragment will be used.
-            // development suggestion: make this using Chain of Responsibility pattern to avoid multiple if statements
-            if (question.getQuestionType() == QuizQuestion.STRING_QUESTION) {
-                fragment = StringQuestionFragment.newInstance(question);
-            } else if (question.getQuestionType() == QuizQuestion.RADIO_QUESTION) {
-                fragment = RadioQuestionFragment.newInstance(question);
-            } else if (question.getQuestionType() == QuizQuestion.CHECKBOX_QUESTION) {
-                fragment = CheckboxQuestionFragment.newInstance(question);
-            } else {
-                fragment = new Fragment();
-            }
-            // Replace whatever is in the fragment_container view with this fragment
-            transaction.replace(R.id.fragment_container, fragment);
-            transaction.commit();
-        }
-        // change state if there are no more questions, evaluation will be available
-        if (!questionIterator.hasNext()) {
-            setGameState(LAST_QUESTION_STATE);
-            // enabling evaluation button and disabling the next question button
-            rightButton.setClickable(false);
-            rightButton.setEnabled(false);
-            leftButton.setClickable(true);
-            leftButton.setEnabled(true);
-            // setting up clickListener for the left button
-            leftButton.setOnClickListener(v -> {
-                fragmentManager.beginTransaction().detach(fragment).commitNow();
-                evaluate();
-                setGameState(EVALUATION_STATE);
-            });
-        }
+    public Iterator<QuizQuestion> getQuestionIterator() {
+        return questionIterator;
     }
 
-    // After finishing game the activity displays the result via Toast (as it was required) and evaluation fragment
-    private void evaluate() {
+    // After finishing game the activity displays the result via Toast (as it was required) and evaluation currentFragment
+    public void evaluate() {
         Toast.makeText(this, getResources().getString(R.string.your_points) + this.gamePoints, Toast.LENGTH_SHORT).show();
-        fragment = EvaluationFragment.newInstance(gamePoints, maxPoints, playerName);
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commitNow();
+        currentFragment = EvaluationFragment.newInstance(gamePoints, maxPoints, playerName);
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, currentFragment).commitNow();
     }
 
-    //set new gameState
-    public void setGameState(int gameState) {
-        this.gameState = gameState;
+
+    /**
+     *
+     * Getters and setters for private fields
+     */
+
+    public int getMaxPoints() {
+        return maxPoints;
+    }
+
+    public int getGamePoints() {
+        return gamePoints;
+    }
+
+    public Fragment getCurrentFragment() {
+        return currentFragment;
+    }
+
+    public void setCurrentFragment(Fragment currentFragment) {
+        this.currentFragment = currentFragment;
+    }
+
+
+    public String getPlayerName() {
+        return playerName;
     }
 
     // set player name
@@ -145,6 +131,17 @@ public class MainActivity extends AppCompatActivity {
         this.playerName = playerName;
     }
 
+
+
+    // get current GameState
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    // set current GameState
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 
     /**
      * @param value to add this amount to game points
