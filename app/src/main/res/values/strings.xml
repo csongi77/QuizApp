@@ -25,6 +25,7 @@
     <string name="awesome">Woooow, you are a pro climber, aren\'t you?</string>
     <string name="publish">Publish your result</string>
     <string name="reset">Restart</string>
-    <string name="facebook_app_id"></string>
+    <string name="facebook_app_id">146763969343734</string>
+    <string name="publish_text">Publish your result on:</string>
 
 </resources>

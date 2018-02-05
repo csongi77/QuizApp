@@ -2,6 +2,7 @@ package com.example.csongor.quizapp;
 
 /**
  * Created by csongor on 2/2/18.
+ *
  * Through this interface can game handle different button
  * behaviours depending on game state
  */

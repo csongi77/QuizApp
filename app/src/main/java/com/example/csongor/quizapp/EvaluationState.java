@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import com.facebook.share.widget.ShareDialog;
 
 /**
  * Created by csongor on 2/2/18.
+ * In this state users can restart game or publish their results
  */
 
 class EvaluationState implements GameState {
@@ -47,7 +49,22 @@ class EvaluationState implements GameState {
        ViewGroup vg=(ViewGroup)mainActivity.findViewById(R.id.fragment_container);
         vg.setDrawingCacheEnabled(true);
         Bitmap bitmap = Bitmap.createBitmap(vg.getDrawingCache());
+        Log.e("eval","----------------------------Bitmap created: ");
         vg.setDrawingCacheEnabled(false);
+
+        /**
+         *   at this moment I could share result via FB because creating a simple implicit Intent
+         *  didn't work:
+         *  1. The screenshot fileSize was bigger that a single Intent could handle, it threw exception
+         *  2. Tried to save it on external_file_storage. I checked and asked for WRITE_EXTERNAL_STORAGE permission.
+         *      When I got it, the image was saved to file and I put it into URI.
+         *      The Uri was put in Intent, but it couldn't read the file.
+         *      However I added .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+         *  3. At this moment I could achive sharing screenshot only with Facebook API, sorry... :(
+         *  4. I need few days/hours to fix this (saving screenshot, save it to file, put file Uri into implicit Intent to publish)
+         */
+
+        //FOR FACEBOOK SHARE
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)
                 .build();
@@ -56,6 +73,7 @@ class EvaluationState implements GameState {
                 .build();
         ShareDialog dialog = new ShareDialog(mainActivity);
         dialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+
     }
 
     /**

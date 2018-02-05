@@ -1,10 +1,18 @@
 package com.example.csongor.quizapp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.util.LruCache;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -13,8 +21,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     // variable declarations
+    private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE=42;
     private int gamePoints;
     private int maxPoints;
     private GameState gameState;
@@ -32,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // set up default game state
         gameState=InGameState.getInstance(this);
         // loading question list and the iterator for it
@@ -49,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         // assigning buttons. Later it's easier to use these variable names
         rightButton = findViewById(R.id.right_button);
         leftButton = findViewById(R.id.left_button);
@@ -122,20 +132,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
     // set player name
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
-    }
-
-
-
-    // get current GameState
-    public GameState getGameState() {
-        return gameState;
     }
 
     // set current GameState
