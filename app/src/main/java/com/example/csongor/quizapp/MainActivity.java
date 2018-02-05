@@ -131,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
         this.currentFragment = currentFragment;
     }
 
+    public String getPlayerName() {
+        return playerName;
+    }
 
     // set player name
     public void setPlayerName(String playerName) {

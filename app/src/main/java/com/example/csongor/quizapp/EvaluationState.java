@@ -51,7 +51,13 @@ class EvaluationState implements GameState {
         Bitmap bitmap = Bitmap.createBitmap(vg.getDrawingCache());
         Log.e("eval","----------------------------Bitmap created: ");
         vg.setDrawingCacheEnabled(false);
-
+        // Creating simple share intent with action chooser
+        String toPut=String.format(mainActivity.getResources().getString(R.string.publish_my_result),mainActivity.getGamePoints(), mainActivity.getMaxPoints(), mainActivity.getPlayerName());
+        Intent shareIntent=new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,toPut);
+        mainActivity.startActivity(Intent.createChooser(shareIntent, mainActivity.getResources().getString(R.string.publish)));
         /**
          *   at this moment I could share result via FB because creating a simple implicit Intent
          *  didn't work:
@@ -64,6 +70,7 @@ class EvaluationState implements GameState {
          *  4. I need few days/hours to fix this (saving screenshot, save it to file, put file Uri into implicit Intent to publish)
          */
 
+        /*
         //FOR FACEBOOK SHARE
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)
@@ -73,6 +80,7 @@ class EvaluationState implements GameState {
                 .build();
         ShareDialog dialog = new ShareDialog(mainActivity);
         dialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+        */
 
     }
 

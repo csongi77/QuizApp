@@ -20,6 +20,10 @@
         <xliff:g id="player">%s</xliff:g>, you\'ve got <xliff:g id="answer">%d</xliff:g> of maximum
         <xliff:g id="max_points">%d</xliff:g> points. That is <xliff:g id="result">%s</xliff:g> percent.
     </string>
+    <string name="publish_my_result">Hello, I achieved <xliff:g id="answer">%d</xliff:g> of maximum
+        <xliff:g id="max_points">%d</xliff:g> points in QuizApp! :) Cheers,
+        <xliff:g id="name">%s</xliff:g>
+    </string>
     <string name="try_again">Thank you for the game, I think you should try again</string>
     <string name="not_bad">Not bad, after some practising you\'ll be pro!</string>
     <string name="awesome">Woooow, you are a pro climber, aren\'t you?</string>
