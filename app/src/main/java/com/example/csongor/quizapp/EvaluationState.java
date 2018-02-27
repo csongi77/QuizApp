@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -15,6 +16,11 @@ import com.facebook.share.model.ShareContent;
 import com.facebook.share.model.ShareMediaContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.widget.ShareDialog;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 
 /**
  * Created by csongor on 2/2/18.
@@ -51,12 +57,28 @@ class EvaluationState implements GameState {
         Bitmap bitmap = Bitmap.createBitmap(vg.getDrawingCache());
         Log.e("eval","----------------------------Bitmap created: ");
         vg.setDrawingCacheEnabled(false);
+        URI someUri=null;
+        try {
+            File toSend=File.createTempFile("pref",".jpg");
+            FileOutputStream fos = new FileOutputStream(toSend);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,70,fos);
+            fos.close();
+            someUri=toSend.toURI();
+            Log.e("eval","----------------------Uri created: "+someUri.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Creating simple share intent with action chooser
-        String toPut=String.format(mainActivity.getResources().getString(R.string.publish_my_result),mainActivity.getGamePoints(), mainActivity.getMaxPoints(), mainActivity.getPlayerName());
+       String toPut=String.format(mainActivity.getResources().getString(R.string.publish_my_result),mainActivity.getGamePoints(), mainActivity.getMaxPoints(), mainActivity.getPlayerName());
         Intent shareIntent=new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_TEXT,toPut);
+        shareIntent.putExtra(Intent.EXTRA_STREAM,someUri);
+        shareIntent.setType("image/jpeg");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+       // Bundle bundleToSend=new Bundle();
+      //  bundleToSend.putParcelable("image",bitmap);
+     //   shareIntent.putExtra("image",bundleToSend);
         mainActivity.startActivity(Intent.createChooser(shareIntent, mainActivity.getResources().getString(R.string.publish)));
         /**
          *   at this moment I could share result via FB because creating a simple implicit Intent
@@ -70,7 +92,7 @@ class EvaluationState implements GameState {
          *  4. I need few days/hours to fix this (saving screenshot, save it to file, put file Uri into implicit Intent to publish)
          */
 
-        /*
+/*
         //FOR FACEBOOK SHARE
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)
@@ -80,7 +102,7 @@ class EvaluationState implements GameState {
                 .build();
         ShareDialog dialog = new ShareDialog(mainActivity);
         dialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
-        */
+*/
 
     }
 

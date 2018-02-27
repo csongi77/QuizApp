@@ -8,17 +8,17 @@ import java.io.Serializable;
 
 public class Answer implements Serializable {
     //private fields
-    private String answerText;
-    private boolean rightAnswer;
+    private String mAnswerText;
+    private boolean mRightAnswer;
 
     /**
      * Ctor
-     * @param answerText String that must be shown. In case STRING_QUESTION this is the right answer
-     * @param rightAnswer true if this is the right answer, else false
+     * @param mAnswerText String that must be shown. In case STRING_QUESTION this is the right answer
+     * @param mRightAnswer true if this is the right answer, else false
      */
-    public Answer(String answerText, boolean rightAnswer) {
-        this.answerText = answerText;
-        this.rightAnswer = rightAnswer;
+    public Answer(String mAnswerText, boolean mRightAnswer) {
+        this.mAnswerText = mAnswerText;
+        this.mRightAnswer = mRightAnswer;
     }
 
     /**
@@ -26,13 +26,13 @@ public class Answer implements Serializable {
      * Exception: If QuestionType is STRING_QUESTION, than this is the right answer.
      */
     public String getAnswerText() {
-        return answerText;
+        return mAnswerText;
     }
 
     /**
-     * @return Wheter is this answer option is the right answer
+     * @return Whether is this answer option is the right answer
      */
     public boolean isRightAnswer() {
-        return rightAnswer;
+        return mRightAnswer;
     }
 }
