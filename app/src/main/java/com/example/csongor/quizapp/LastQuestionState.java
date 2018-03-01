@@ -10,19 +10,19 @@ import android.widget.TextView;
 
 class LastQuestionState implements GameState {
     // declaring variables
-    private static final LastQuestionState ourInstance = new LastQuestionState();
-    private static MainActivity mainActivity;
-    private static TextView leftButton, rightButton;
-    private static FragmentManager fragmentManager;
-    private static Fragment fragment;
+    private static final LastQuestionState LAST_QUESTION_STATE_INSTANCE = new LastQuestionState();
+    private static MainActivity sMainActivity;
+    private static TextView sLeftButton, sRightButton;
+    private static FragmentManager sFragmentManager;
+    private static Fragment sFragment;
 
     static LastQuestionState getInstance(MainActivity activity) {
-        // setting up variables
-        mainActivity=activity;
-        leftButton= mainActivity.findViewById(R.id.left_button);
-        rightButton= mainActivity.findViewById(R.id.right_button);
-        fragmentManager=mainActivity.getSupportFragmentManager();
-        return ourInstance;
+        // initializing variables
+        sMainActivity =activity;
+        sLeftButton = sMainActivity.findViewById(R.id.left_button);
+        sRightButton = sMainActivity.findViewById(R.id.right_button);
+        sFragmentManager = sMainActivity.getSupportFragmentManager();
+        return LAST_QUESTION_STATE_INSTANCE;
     }
 
     private LastQuestionState() {
@@ -33,7 +33,7 @@ class LastQuestionState implements GameState {
      */
     @Override
     public void doRightButtonAction() {
-
+        // empty since it has no function for it
     }
 
     /**
@@ -41,15 +41,21 @@ class LastQuestionState implements GameState {
      */
     @Override
     public void doLeftButtonAction() {
-        fragment=mainActivity.getCurrentFragment();
-        fragmentManager.beginTransaction().detach(fragment).commitNow();
-        mainActivity.evaluate();
-        rightButton.setText(R.string.publish);
-        leftButton.setText(R.string.reset);
-        rightButton.setClickable(true);
-        rightButton.setEnabled(true);
-        leftButton.setClickable(true);
-        leftButton.setEnabled(true);
-        mainActivity.setGameState(EvaluationState.getInstance(mainActivity));
+        sFragment = sMainActivity.getCurrentFragment();
+        sFragmentManager.beginTransaction().detach(sFragment).commitNow();
+
+        // calling evaluation
+        sMainActivity.evaluate();
+
+        // setting buttons for next state
+        sRightButton.setText(R.string.publish);
+        sLeftButton.setText(R.string.reset);
+        sRightButton.setClickable(true);
+        sRightButton.setEnabled(true);
+        sLeftButton.setClickable(true);
+        sLeftButton.setEnabled(true);
+
+        // setting next state
+        sMainActivity.setGameState(EvaluationState.getInstance(sMainActivity));
     }
 }

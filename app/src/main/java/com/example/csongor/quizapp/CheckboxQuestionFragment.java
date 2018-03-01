@@ -26,10 +26,10 @@ public class CheckboxQuestionFragment extends Fragment {
     private static final String BUNDLE_QUESTION ="BUNDLE_QUESTION";
     private int mAnswerPoints;
     private QuizQuestion mQuestion;
-    private View rootView;
-    private TextView questionText;
-    private ImageView imageView;
-    private ArrayList<CheckBox> checkBoxes = new ArrayList<CheckBox>();
+    private View mRootView;
+    private TextView mQuestionText;
+    private ImageView mImageView;
+    private ArrayList<CheckBox> mCheckBoxes = new ArrayList<CheckBox>();
 
     //creating fragment with QuizQuestion argument
     public static CheckboxQuestionFragment newInstance(QuizQuestion quizQuestion) {
@@ -40,11 +40,7 @@ public class CheckboxQuestionFragment extends Fragment {
         return fragment;
     }
 
-    private void readBundle(Bundle bundle) {
-        if (bundle != null) {
-            mQuestion = (QuizQuestion) bundle.get(BUNDLE_QUESTION);
-        }
-    }
+
 
     /**
      * Called when a fragment is first attached to its context.
@@ -56,7 +52,6 @@ public class CheckboxQuestionFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mAnswerPoints = 0;
-
     }
 
 
@@ -81,51 +76,56 @@ public class CheckboxQuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.checkbox_question_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.checkbox_question_fragment, container, false);
         // setting up the variables
-        questionText = rootView.findViewById(R.id.checkbox_question_text);
-        imageView = rootView.findViewById(R.id.checkbox_question_image_container);
+        mQuestionText = mRootView.findViewById(R.id.checkbox_question_text);
+        mImageView = mRootView.findViewById(R.id.checkbox_question_image_container);
         // adding the checkbox variables into arraylist for the evaluation
-        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_0));
-        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_1));
-        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_2));
-        checkBoxes.add(rootView.findViewById(R.id.checkbox_answer_option_3));
+        mCheckBoxes.add(mRootView.findViewById(R.id.checkbox_answer_option_0));
+        mCheckBoxes.add(mRootView.findViewById(R.id.checkbox_answer_option_1));
+        mCheckBoxes.add(mRootView.findViewById(R.id.checkbox_answer_option_2));
+        mCheckBoxes.add(mRootView.findViewById(R.id.checkbox_answer_option_3));
+        // reading arguments
         readBundle(getArguments());
-        questionText.setText(mQuestion.getQuestion());
+        mQuestionText.setText(mQuestion.getQuestion());
         Drawable image = getActivity().getDrawable(mQuestion.getImageResourceId());
         // displaying the questions
-        for (int i = 0; i < checkBoxes.size(); i++) {
-            checkBoxes.get(i).setText(mQuestion.getAnswers().get(i).getAnswerText());
+        for (int i = 0; i < mCheckBoxes.size(); i++) {
+            mCheckBoxes.get(i).setText(mQuestion.getAnswers().get(i).getAnswerText());
         }
-        imageView.setImageDrawable(image);
-        rootView.clearFocus();
+        mImageView.setImageDrawable(image);
+        mRootView.clearFocus();
+
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
-       ScrollView scroll= rootView.findViewById(R.id.checkbox_scroll_container);
+        im.hideSoftInputFromWindow(mRootView.getWindowToken(),0);
+       ScrollView scroll= mRootView.findViewById(R.id.checkbox_scroll_container);
        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        return rootView;
+        return mRootView;
     }
 
     @Override
     public void onStop() {
         /** Checking right answer. The loop goes through the checked buttons and the answer list.
-         * if both is true (checkBoxes.get(i) and answerOptions.get(i)) than the result is also true.
-         * in this, and only this case answer points raises by 1. If the answerOption is false but it
-         * was checked the answer points will be decreased to avoid getting points by selecting all
-         * possible answer options.
-         *  For example if player checks 2 correct and 1 wrong answer they get only 1 point
-         * If they checks 2 incorrect and 1 right answer they got 0 points, etc.
+         * If both are true (mCheckBoxes.get(i) and answerOptions.get(i)) than the result is also true.
+         * If player chosen all good answers, they gets the point
          */
-        for (int i = 0; i < checkBoxes.size(); i++) {
-            if (checkBoxes.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
+        for (int i = 0; i < mCheckBoxes.size(); i++) {
+            if (mCheckBoxes.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
                 mAnswerPoints++;
-            } else if (checkBoxes.get(i).isChecked() && !(mQuestion.getAnswers().get(i).isRightAnswer())) {
+            }/* else if (mCheckBoxes.get(i).isChecked() && !(mQuestion.getAnswers().get(i).isRightAnswer())) {
                 mAnswerPoints--;
-            }
+            }*/
         }
-        if (mAnswerPoints == mQuestion.getMaxPoints())
+        if (mAnswerPoints == mQuestion.getRightAnswerNumber())
             ((MainActivity) getActivity()).addPoints(1);
         super.onStop();
+    }
+
+    // helper method for getting Bundle argumennts
+    private void readBundle(Bundle bundle) {
+        if (bundle != null) {
+            mQuestion = (QuizQuestion) bundle.get(BUNDLE_QUESTION);
+        }
     }
 }

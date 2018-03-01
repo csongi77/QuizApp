@@ -18,34 +18,26 @@ import android.widget.TextView;
 
 public class EvaluationFragment extends Fragment {
     // defining vatiables
-    private static final String PLAYER = "player";
-    private static final String MAX_POINTS = "maxPoints";
-    private static final String ACTUAL_POINTS = "actualPoints";
-    private int answerPoints;
-    private int maxPoints;
-    private View rootView;
-    private TextView titleText, evaluationText;
-    private ImageView imageView;
-    private String playerName;
+    private static final String BUNDLE_PLAYER = "BUNDLE_PLAYER";
+    private static final String BUNDLE_MAX_POINTS = "BUNDLE_MAX_POINTS";
+    private static final String BUNDLE_ACTUAL_POINTS = "BUNDLE_ACTUAL_POINTS";
+    private int mAnswerPoints;
+    private int mMaxPoints;
+    private View mRootView;
+    private TextView mTitleText, mEvaluationText;
+    private ImageView mImageView;
+    private String mPlayerName;
 
 
     //creating fragment with QuizQuestion argument
     public static EvaluationFragment newInstance(int actualPoints, int maxPoints, String playerName) {
         Bundle bundle = new Bundle();
-        bundle.putString(PLAYER, playerName);
-        bundle.putInt(MAX_POINTS, maxPoints);
-        bundle.putInt(ACTUAL_POINTS, actualPoints);
+        bundle.putString(BUNDLE_PLAYER, playerName);
+        bundle.putInt(BUNDLE_MAX_POINTS, maxPoints);
+        bundle.putInt(BUNDLE_ACTUAL_POINTS, actualPoints);
         EvaluationFragment fragment = new EvaluationFragment();
         fragment.setArguments(bundle);
         return fragment;
-    }
-
-    private void readBundle(Bundle bundle) {
-        if (bundle != null) {
-            this.answerPoints = bundle.getInt(ACTUAL_POINTS);
-            this.maxPoints = bundle.getInt(MAX_POINTS);
-            this.playerName = bundle.getString(PLAYER);
-        }
     }
 
 
@@ -70,19 +62,19 @@ public class EvaluationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.evaluation_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.evaluation_fragment, container, false);
         // setting up views
-        titleText = rootView.findViewById(R.id.evaluation_title_text);
-        evaluationText = rootView.findViewById(R.id.evaluation_text);
-        imageView = rootView.findViewById(R.id.evaluation_image_container);
+        mTitleText = mRootView.findViewById(R.id.evaluation_title_text);
+        mEvaluationText = mRootView.findViewById(R.id.evaluation_text);
+        mImageView = mRootView.findViewById(R.id.evaluation_image_container);
         // loading bundle arguments
         readBundle(getArguments());
         // scrolling down to remain the evaluation text visible
-        ScrollView scroll = rootView.findViewById(R.id.evaluation_scroll_container);
+        ScrollView scroll = mRootView.findViewById(R.id.evaluation_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN), 150L);
         // evaluating game
         evaluateGame();
-        return rootView;
+        return mRootView;
     }
 
 
@@ -99,24 +91,34 @@ public class EvaluationFragment extends Fragment {
 
     private void evaluateGame() {
         // formatting result
-        String resultToDisplay = String.format("%.2f", (answerPoints / (double) maxPoints) * 100);
-        String titleToDisplay = String.format(getResources().getString(R.string.evaluation_title),playerName,answerPoints,maxPoints,resultToDisplay);
-        titleText.setText(titleToDisplay);
-        imageView.setImageDrawable(getActivity().getDrawable(R.drawable.eight_thousanders));
-        double result = answerPoints / (double) maxPoints * 100;
+        String resultToDisplay = String.format("%.2f", (mAnswerPoints / (double) mMaxPoints) * 100);
+        String titleToDisplay = String.format(getResources().getString(R.string.evaluation_title), mPlayerName, mAnswerPoints, mMaxPoints,resultToDisplay);
+        mTitleText.setText(titleToDisplay);
+        mImageView.setImageDrawable(getActivity().getDrawable(R.drawable.eight_thousanders));
+        double result = mAnswerPoints / (double) mMaxPoints * 100;
         // displaying result dependent message and background image
         if (result < 25) {
-            evaluationText.setText(R.string.try_again);
+            mEvaluationText.setText(R.string.try_again);
             // own picture
-            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.rookie2));
+            mImageView.setImageDrawable(getActivity().getDrawable(R.drawable.rookie2));
         } else if (result < 81) {
-            evaluationText.setText(R.string.not_bad);
+            mEvaluationText.setText(R.string.not_bad);
             // By Sonia Sevilla - Own work, CC0, https://commons.wikimedia.org/w/index.php?curid=30938215
-            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.rock_climber));
+            mImageView.setImageDrawable(getActivity().getDrawable(R.drawable.rock_climber));
         } else {
-            evaluationText.setText(R.string.awesome);
+            mEvaluationText.setText(R.string.awesome);
             // By Mountaineer - Own work, CC BY 3.0, https://commons.wikimedia.org/w/index.php?curid=5730546
-            imageView.setImageDrawable(getActivity().getDrawable(R.drawable.mountaineer));
+            mImageView.setImageDrawable(getActivity().getDrawable(R.drawable.mountaineer));
         }
     }
+
+    // helper method for retrieving bundle args
+    private void readBundle(Bundle bundle) {
+        if (bundle != null) {
+            this.mAnswerPoints = bundle.getInt(BUNDLE_ACTUAL_POINTS);
+            this.mMaxPoints = bundle.getInt(BUNDLE_MAX_POINTS);
+            this.mPlayerName = bundle.getString(BUNDLE_PLAYER);
+        }
+    }
+
 }

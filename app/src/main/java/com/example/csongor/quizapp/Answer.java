@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 
 public class Answer implements Serializable {
-    //private fields
+    // private fields
     private String mAnswerText;
     private boolean mRightAnswer;
 
@@ -21,6 +21,7 @@ public class Answer implements Serializable {
         this.mRightAnswer = mRightAnswer;
     }
 
+    // don't need setters since Answers are not changeable
     /**
      * @return The String that must be shown at answer option in fragment.
      * Exception: If QuestionType is STRING_QUESTION, than this is the right answer.

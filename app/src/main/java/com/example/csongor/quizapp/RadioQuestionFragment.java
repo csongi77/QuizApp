@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,28 +23,20 @@ import java.util.ArrayList;
  */
 
 public class RadioQuestionFragment extends Fragment {
-    private int answerPoints;
-    private QuizQuestion question;
-    private View rootView;
-    private TextView questionText;
-    private ImageView imageView;
-    private Boolean[] playerAnswers={false,false,false,false};
-    private ArrayList<RadioButton> radioButtons = new ArrayList<RadioButton>();
+    private int mAnswerPoints;
+    private QuizQuestion mQuestion;
+    private View mRootView;
+    private TextView mQuestionText;
+    private ImageView mImageView;
+    private ArrayList<RadioButton> mRadioButtons = new ArrayList<RadioButton>();
 
     //creating fragment with QuizQuestion argument
     public static RadioQuestionFragment newInstance(QuizQuestion quizQuestion) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("question", quizQuestion);
+        bundle.putSerializable("mQuestion", quizQuestion);
         RadioQuestionFragment fragment = new RadioQuestionFragment();
         fragment.setArguments(bundle);
-        Log.e("RadioQuestionFragment", " fragment instantinated ---->");
         return fragment;
-    }
-
-    private void readBundle(Bundle bundle) {
-        if (bundle != null) {
-            question = (QuizQuestion) bundle.get("question");
-        }
     }
 
     /**
@@ -57,7 +48,7 @@ public class RadioQuestionFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        answerPoints = 0;
+        mAnswerPoints = 0;
 
     }
 
@@ -83,28 +74,30 @@ public class RadioQuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.radio_question_fragment, container, false);
+        mRootView = inflater.inflate(R.layout.radio_question_fragment, container, false);
         readBundle(getArguments());
-        questionText = rootView.findViewById(R.id.radio_question_text);
-        imageView = rootView.findViewById(R.id.radio_question_image_container);
-        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_0));
-        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_1));
-        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_2));
-        radioButtons.add(rootView.findViewById(R.id.radio_answer_option_3));
 
+        // initializing fields
+        mQuestionText = mRootView.findViewById(R.id.radio_question_text);
+        mImageView = mRootView.findViewById(R.id.radio_question_image_container);
+        mRadioButtons.add(mRootView.findViewById(R.id.radio_answer_option_0));
+        mRadioButtons.add(mRootView.findViewById(R.id.radio_answer_option_1));
+        mRadioButtons.add(mRootView.findViewById(R.id.radio_answer_option_2));
+        mRadioButtons.add(mRootView.findViewById(R.id.radio_answer_option_3));
 
-        questionText.setText(question.getQuestion());
-        Drawable image = getActivity().getDrawable(question.getImageResourceId());
-        for (int i=0; i<radioButtons.size(); i++){
-            radioButtons.get(i).setText(question.getAnswers().get(i).getAnswerText());
+        // displaying texts and images
+        mQuestionText.setText(mQuestion.getQuestion());
+        Drawable image = getActivity().getDrawable(mQuestion.getImageResourceId());
+        for (int i = 0; i< mRadioButtons.size(); i++){
+            mRadioButtons.get(i).setText(mQuestion.getAnswers().get(i).getAnswerText());
         }
-        imageView.setImageDrawable(image);
-        // hiding virtual keyboard, if it was active due to StringQuestionFragment
+        mImageView.setImageDrawable(image);
+        // hiding virtual keyboard, if it was active due to StringQuestionFragment - idea from StackOverflow
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
-        ScrollView scroll= rootView.findViewById(R.id.radio_scroll_container);
+        im.hideSoftInputFromWindow(mRootView.getWindowToken(),0);
+        ScrollView scroll= mRootView.findViewById(R.id.radio_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        return rootView;
+        return mRootView;
     }
 
 
@@ -113,14 +106,21 @@ public class RadioQuestionFragment extends Fragment {
         // checking right answer. The loop goes through the checked buttons and the answer list.
         // if both is true (buttons[i] and answerOptions.get(i)) than the result is also true.
         // in this, and only this case answer points raises by 1. Because only one right answer is
-        // possible, it returns only 1 point for the right answered question
-        for (int i = 0; i < radioButtons.size(); i++) {
-            if (radioButtons.get(i).isChecked() & question.getAnswers().get(i).isRightAnswer()) {
-                answerPoints++;
+        // possible, it returns only 1 point for the right answered mQuestion
+        for (int i = 0; i < mRadioButtons.size(); i++) {
+            if (mRadioButtons.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
+                mAnswerPoints++;
             }
         }
-        ((MainActivity) getActivity()).addPoints(answerPoints);
-        rootView = null;
+        ((MainActivity) getActivity()).addPoints(mAnswerPoints);
+        mRootView = null;
         super.onStop();
+    }
+
+    // helper method for getting bundle args
+    private void readBundle(Bundle bundle) {
+        if (bundle != null) {
+            mQuestion = (QuizQuestion) bundle.get("mQuestion");
+        }
     }
 }

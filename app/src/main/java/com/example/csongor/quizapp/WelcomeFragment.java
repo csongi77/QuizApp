@@ -19,11 +19,11 @@ import android.widget.TextView;
 
 public class WelcomeFragment extends Fragment {
     // field for player's name
-    private String playerName;
-    TextView welcomeText;
-    ImageView imageView;
-    EditText playerNameText;
-    View rootView;
+    private String mPlayerName;
+    TextView mWelcomeText;
+    ImageView mImageView;
+    EditText mPlayerNameText;
+    View mRootView;
 
 
     /**
@@ -47,20 +47,20 @@ public class WelcomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.string_question_fragment,container,false);
+        mRootView =inflater.inflate(R.layout.string_question_fragment,container,false);
         // assigning variable namest to views
-        welcomeText=rootView.findViewById(R.id.string_question_text);
-        imageView=rootView.findViewById(R.id.string_question_image_container);
-        playerNameText=rootView.findViewById(R.id.player_string_answer);
+        mWelcomeText = mRootView.findViewById(R.id.string_question_text);
+        mImageView = mRootView.findViewById(R.id.string_question_image_container);
+        mPlayerNameText = mRootView.findViewById(R.id.player_string_answer);
         // setting up appropriate text and image
-        playerNameText.setHint(R.string.name_hint);
-        welcomeText.setText(R.string.welcome_title);
+        mPlayerNameText.setHint(R.string.name_hint);
+        mWelcomeText.setText(R.string.welcome_title);
         Drawable image= getActivity().getDrawable(R.drawable.p1020310);
-        imageView.setImageDrawable(image);
+        mImageView.setImageDrawable(image);
         // scroll down if in order to get all text visible
-        ScrollView scroll=(ScrollView)rootView.findViewById(R.id.string_scroll_container);
+        ScrollView scroll=(ScrollView) mRootView.findViewById(R.id.string_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        return rootView;
+        return mRootView;
     }
 
     /**
@@ -72,8 +72,8 @@ public class WelcomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         // setting player name at MainActivity
-        playerName=playerNameText.getText().toString();
-        rootView=null;
-        ((MainActivity)getActivity()).setPlayerName(playerName);
+        mPlayerName = mPlayerNameText.getText().toString();
+        mRootView =null;
+        ((MainActivity)getActivity()).setPlayerName(mPlayerName);
     }
 }

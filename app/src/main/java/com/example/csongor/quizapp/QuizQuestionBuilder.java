@@ -10,46 +10,46 @@ import java.util.List;
 
 public class QuizQuestionBuilder {
 
-    private static int imageResourceId;
-    private static String questionText;
-    private static List<Answer> answers;
-    private static QuizQuestionBuilder instance = new QuizQuestionBuilder();
+    private static int sImageResourceId;
+    private static String sQuestionText;
+    private static List<Answer> sAnswers;
+    private static QuizQuestionBuilder sInstance = new QuizQuestionBuilder();
 
     private QuizQuestionBuilder() {
     }
 
     /**
      *
-     * @return QuizQuestionBuilder instance
+     * @return QuizQuestionBuilder sInstance
      * this method initializes a new answer ArrayList
      */
-    public static QuizQuestionBuilder getInstance() {
-        answers = new ArrayList<Answer>();
-        return instance;
+    public static QuizQuestionBuilder getsInstance() {
+        sAnswers = new ArrayList<Answer>();
+        return sInstance;
     }
 
     /**
      *
      * @param resourceId the image resource ID (int)
-     * @return QuizQuestionBuilder instance
+     * @return QuizQuestionBuilder sInstance
      * IMPORTANT: only one ID is allowed, otherwise the previously added ID will be
      * overwritten!
      */
     public static QuizQuestionBuilder addImageResourceId(int resourceId) {
-        imageResourceId = resourceId;
-        return instance;
+        sImageResourceId = resourceId;
+        return sInstance;
     }
 
     /**
      *
      * @param text the String that has to be displayed
-     * @return QuizQuestionBuilder instance
+     * @return QuizQuestionBuilder sInstance
      * IMPORTANT: only one question is allowed, otherwise the previously added question will be
      * overwritten!
      */
     public static QuizQuestionBuilder addQuestionText(String text) {
-        questionText = text;
-        return instance;
+        sQuestionText = text;
+        return sInstance;
     }
 
     /**
@@ -61,31 +61,31 @@ public class QuizQuestionBuilder {
      * @param isRightAnswer - boolean for evaluation. This will be compared to players' answer.
      *                      If there is one and only one answer in the list, the answer _must_be_true!_
      * @return QuizQuestionBuilder instance <br>
-     * IMPORTANT: Only one or four answers must be added due to gameType:<br>
-     *                   1 answer with 1 right answer option-> getQuestionType=STRING_QUESTION<br>
-     *                   4 answer with 1 right answer option -> getQuestionType=RADIO_QUESTION<br>
-     *                   4 answer with 2-4 right answer option -> getQuestionType=CHECKBOX_QUESTION<br>
+     * IMPORTANT: Only one or four sAnswers must be added due to gameType:<br>
+     *                   1 answer with 1 right answer option-> getQuestionType returns STRING_QUESTION<br>
+     *                   4 answer with 1 right answer option -> getQuestionType returns RADIO_QUESTION<br>
+     *                   4 answer with 2-4 right answer option -> getQuestionType returns CHECKBOX_QUESTION<br>
      */
     public static QuizQuestionBuilder addAnswer(String answerText, boolean isRightAnswer) {
         Answer answerToAdd = new Answer(answerText, isRightAnswer);
         /* because the game handles only maximum 4 questions (checkbox or radioButton), it must
-        * checked to avoid throving exceptions
+        * checked to avoid throwing exceptions
         */
-        if (answers.size() < 5) {
-            answers.add(answerToAdd);
+        if (sAnswers.size() < 5) {
+            sAnswers.add(answerToAdd);
         }
-        return instance;
+        return sInstance;
     }
 
     /**
      *
      * @return new QuizQuestion. QuestionType is dependent to Answers:
-     *                   1 answer with 1 right answer option-> getQuestionType=STRING_QUESTION
-     *                   4 answer with 1 right answer option -> getQuestionType=RADIO_QUESTION
-     *                   4 answer with 2-4 right answer option -> getQuestionType=CHECKBOX_QUESTION
+     *                   1 answer with 1 right answer option-> getQuestionType returns STRING_QUESTION
+     *                   4 answer with 1 right answer option -> getQuestionType returns RADIO_QUESTION
+     *                   4 answer with 2-4 right answer option -> getQuestionType returns CHECKBOX_QUESTION
      */
     public static QuizQuestion build() {
-        QuizQuestion toBuild = new QuizQuestion(imageResourceId, questionText, answers);
+        QuizQuestion toBuild = new QuizQuestion(sImageResourceId, sQuestionText, sAnswers);
         return toBuild;
     }
 }

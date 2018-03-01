@@ -22,28 +22,23 @@ import android.widget.TextView;
 
 public class StringQuestionFragment extends Fragment {
 
-  private   int answerPoints;
-    private QuizQuestion question;
-    private String playerAnswer;
-    private View rootView;
-    private TextView questionText;
-    private ImageView imageView;
-    private EditText answerText;
+    private int mAnswerPoints;
+    private QuizQuestion mQuestion;
+    private String mPlayerAnswer;
+    private View mRootView;
+    private TextView mQuestionText;
+    private ImageView mImageView;
+    private EditText mAnswerText;
 
     //creating fragment with QuizQuestion argument
     public static StringQuestionFragment newInstance(QuizQuestion quizQuestion) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("question",quizQuestion);
+        bundle.putSerializable("mQuestion",quizQuestion);
         StringQuestionFragment fragment =  new StringQuestionFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
 
-    private void readBundle(Bundle bundle) {
-        if (bundle != null) {
-            question=(QuizQuestion) bundle.get("question");
-        }
-    }
 
     /**
      * Called when a fragment is first attached to its context.
@@ -55,8 +50,8 @@ public class StringQuestionFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         //initializing the variables
-        answerPoints=0;
-        playerAnswer="";
+        mAnswerPoints =0;
+        mPlayerAnswer ="";
     }
 
 
@@ -82,21 +77,23 @@ public class StringQuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView=inflater.inflate(R.layout.string_question_fragment,container,false);
-        questionText=rootView.findViewById(R.id.string_question_text);
-        imageView=rootView.findViewById(R.id.string_question_image_container);
-        answerText=rootView.findViewById(R.id.player_string_answer);
+        mRootView =inflater.inflate(R.layout.string_question_fragment,container,false);
+        mQuestionText = mRootView.findViewById(R.id.string_question_text);
+        mImageView = mRootView.findViewById(R.id.string_question_image_container);
+        mAnswerText = mRootView.findViewById(R.id.player_string_answer);
         readBundle(getArguments());
-        // displaying the image and question
-        questionText.setText(question.getQuestion());
-        Drawable image= getActivity().getDrawable(question.getImageResourceId());
-        imageView.setImageDrawable(image);
+
+        // displaying the image and mQuestion
+        mQuestionText.setText(mQuestion.getQuestion());
+        Drawable image= getActivity().getDrawable(mQuestion.getImageResourceId());
+        mImageView.setImageDrawable(image);
         InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(rootView.getWindowToken(),0);
+        im.hideSoftInputFromWindow(mRootView.getWindowToken(),0);
+
         // scrolling down to make the editText field visible
-        ScrollView scroll= rootView.findViewById(R.id.string_scroll_container);
+        ScrollView scroll= mRootView.findViewById(R.id.string_scroll_container);
         scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
-        return rootView;
+        return mRootView;
     }
 
 
@@ -108,17 +105,24 @@ public class StringQuestionFragment extends Fragment {
      */
     @Override
     public void onStop() {
-        playerAnswer=((EditText)getActivity().findViewById(R.id.player_string_answer)).getEditableText().toString().toLowerCase();
-        rootView=null;
+        mPlayerAnswer =(mAnswerText.getEditableText().toString().toLowerCase());
+        mRootView =null;
         /**
          * Checking the answer. If the string answer is the same then the player gets 1 point
          */
-        if(playerAnswer.equals(question.getAnswers().get(0).getAnswerText().toLowerCase())){
-            answerPoints=1;
-            ((MainActivity)getActivity()).addPoints(answerPoints);
+        if(mPlayerAnswer.equals(mQuestion.getAnswers().get(0).getAnswerText().toLowerCase())){
+            mAnswerPoints =1;
+            ((MainActivity)getActivity()).addPoints(mAnswerPoints);
         }else{
-            answerPoints=0;
+            mAnswerPoints =0;
         }
         super.onStop();
+    }
+
+    // helper method for getting bundle args
+    private void readBundle(Bundle bundle) {
+        if (bundle != null) {
+            mQuestion =(QuizQuestion) bundle.get("mQuestion");
+        }
     }
 }

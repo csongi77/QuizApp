@@ -5,17 +5,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.facebook.share.model.ShareContent;
-import com.facebook.share.model.ShareMediaContent;
-import com.facebook.share.model.SharePhoto;
-import com.facebook.share.widget.ShareDialog;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,20 +21,20 @@ import java.net.URI;
  */
 
 class EvaluationState implements GameState {
-    private static final EvaluationState ourInstance = new EvaluationState();
+    private static final EvaluationState EVALUATION_STATE_INSTANCE = new EvaluationState();
     //declaring variables
-    private static MainActivity mainActivity;
-    private static TextView leftButton, rightButton;
-    private static FragmentManager fragmentManager;
-    private static Fragment fragment;
+    private static MainActivity sMainActivity;
+    private static TextView sLeftButton, sRightButton;
+    private static FragmentManager sFragmentManager;
+    private static Fragment sFragment;
 
     static EvaluationState getInstance(MainActivity activity) {
         // setting up variables
-        mainActivity=activity;
-        leftButton= mainActivity.findViewById(R.id.left_button);
-        rightButton= mainActivity.findViewById(R.id.right_button);
-        fragmentManager=mainActivity.getSupportFragmentManager();
-        return ourInstance;
+        sMainActivity =activity;
+        sLeftButton = sMainActivity.findViewById(R.id.left_button);
+        sRightButton = sMainActivity.findViewById(R.id.right_button);
+        sFragmentManager = sMainActivity.getSupportFragmentManager();
+        return EVALUATION_STATE_INSTANCE;
     }
 
     private EvaluationState() {
@@ -52,58 +45,16 @@ class EvaluationState implements GameState {
      */
     @Override
     public void doRightButtonAction() {
-       ViewGroup vg=(ViewGroup)mainActivity.findViewById(R.id.fragment_container);
-        vg.setDrawingCacheEnabled(true);
-        Bitmap bitmap = Bitmap.createBitmap(vg.getDrawingCache());
-        Log.e("eval","----------------------------Bitmap created: ");
-        vg.setDrawingCacheEnabled(false);
-        URI someUri=null;
-        try {
-            File toSend=File.createTempFile("pref",".jpg");
-            FileOutputStream fos = new FileOutputStream(toSend);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,70,fos);
-            fos.close();
-            someUri=toSend.toURI();
-            Log.e("eval","----------------------Uri created: "+someUri.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         // Creating simple share intent with action chooser
-       String toPut=String.format(mainActivity.getResources().getString(R.string.publish_my_result),mainActivity.getGamePoints(), mainActivity.getMaxPoints(), mainActivity.getPlayerName());
+        String mToPut=String.format(sMainActivity.getResources().getString(R.string.publish_my_result), sMainActivity.getGamePoints(), sMainActivity.getMaxPoints(), sMainActivity.getPlayerName());
+        String mSubject=sMainActivity.getResources().getString(R.string.send_subject);
         Intent shareIntent=new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM,someUri);
-        shareIntent.setType("image/jpeg");
-        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-       // Bundle bundleToSend=new Bundle();
-      //  bundleToSend.putParcelable("image",bitmap);
-     //   shareIntent.putExtra("image",bundleToSend);
-        mainActivity.startActivity(Intent.createChooser(shareIntent, mainActivity.getResources().getString(R.string.publish)));
-        /**
-         *   at this moment I could share result via FB because creating a simple implicit Intent
-         *  didn't work:
-         *  1. The screenshot fileSize was bigger that a single Intent could handle, it threw exception
-         *  2. Tried to save it on external_file_storage. I checked and asked for WRITE_EXTERNAL_STORAGE permission.
-         *      When I got it, the image was saved to file and I put it into URI.
-         *      The Uri was put in Intent, but it couldn't read the file.
-         *      However I added .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-         *  3. At this moment I could achive sharing screenshot only with Facebook API, sorry... :(
-         *  4. I need few days/hours to fix this (saving screenshot, save it to file, put file Uri into implicit Intent to publish)
-         */
-
-/*
-        //FOR FACEBOOK SHARE
-        SharePhoto sharePhoto = new SharePhoto.Builder()
-                .setBitmap(bitmap)
-                .build();
-        ShareContent shareContent = new ShareMediaContent.Builder()
-                .addMedium(sharePhoto)
-                .build();
-        ShareDialog dialog = new ShareDialog(mainActivity);
-        dialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
-*/
-
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,mSubject);
+        shareIntent.putExtra(Intent.EXTRA_TEXT,mToPut);
+        sMainActivity.startActivity(Intent.createChooser(shareIntent, sMainActivity.getResources().getString(R.string.publish)));
     }
 
     /**
@@ -111,8 +62,8 @@ class EvaluationState implements GameState {
      */
     @Override
     public void doLeftButtonAction() {
-        // restarting the game
-        Context context=(Context)mainActivity;
+        // restarting the game - method I took was described on StackOverflow
+        Context context= sMainActivity;
         Intent mStartActivity = new Intent(context, MainActivity.class);
         int mPendingIntentId = 123456;
         PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);

@@ -13,66 +13,45 @@ public class QuizQuestion implements Serializable {
     public static final int RADIO_QUESTION=1;
     public static final int CHECKBOX_QUESTION=2;
 
-    private int questionType, imageResourceId;
-    private String question;
-    private List<Answer> answers;
+    private int mQuestionType, mImageResourceId;
+    private String mQuestion;
+    private List<Answer> mAnswers;
 
 
     /**
      * @param imageResourceId image in drawable to show
-     * @param question        the question that shold be displayed
-     * @param answers   the possible answers. The AnswerOption List will determine the QuizQuestionType:
-     *                        1: The list has only 1 and only 1 AnswerOption -> STRING_QUESTION
+     * @param question        the mQuestion that shold be displayed
+     * @param answers   the possible mAnswers. The AnswerOption List will determine the QuizQuestionType:
+     *                        1: The list has 1 and only 1 AnswerOption -> STRING_QUESTION
      *                        2: The list has 4 AnswerOption with 1 rightAnswer -> RADIO_QUESTION
      *                        3: The list has 4 AnswerOption with multiple rightAnswer -> CHECKBOX_QUESTION
      */
     public QuizQuestion(int imageResourceId, String question, List<Answer> answers) {
-        this.imageResourceId = imageResourceId;
-        this.question = question;
-        this.answers = answers;
-        this.questionType = setupType();
+        this.mImageResourceId = imageResourceId;
+        this.mQuestion = question;
+        this.mAnswers = answers;
+        this.mQuestionType = setupType();
     }
 
-
     /**
-     * @return the Type or questionType
-     * this is the helper method for constructor
-     */
-    private int setupType() {
-        int rightAnswers = 0;
-        for (Answer answer : answers
-                ) {
-            if (answer.isRightAnswer()) {
-                rightAnswers++;
-            }
-        }
-        if (rightAnswers > 1) {
-            return CHECKBOX_QUESTION;
-        } else if (answers.size() > 1) {
-            return RADIO_QUESTION;
-        } else return STRING_QUESTION;
-    }
-
-
-    /**
-     * @return imageResourceId
+     * @return mImageResourceId
      */
     public int getImageResourceId() {
-        return imageResourceId;
+        return mImageResourceId;
     }
 
     /**
-     * @return the String for the question.
+     * @return the String for the mQuestion.
      */
     public String getQuestion() {
-        return question;
+        return mQuestion;
     }
 
     /**
      * @return the list of AnswerOptions.In STRING_QUESTION type this string is the right answer
      */
     public List<Answer> getAnswers() {
-        return answers;
+        return mAnswers;
     }
 
 
@@ -80,23 +59,41 @@ public class QuizQuestion implements Serializable {
      * @return the QuizQuestion type
      */
     public int getQuestionType() {
-        return this.questionType;
+        return this.mQuestionType;
     }
 
     /**
-     * @return the maximum points (for instance CheckBox questions can worth 2-4 points depending on
+     * @return the number of right mAnswers (for instance CheckBox questions can have 2-4 good mAnswers depending on
      *  the number of right answer options) It is necessary at evaluation to compare right and only right
-     *  answers
+     *  mAnswers
      */
 
-    public int getMaxPoints() {
-        int toReturn=0;
-       for (Answer answer: answers
+    public int getRightAnswerNumber() {
+       int toReturn=0;
+       for (Answer answer: mAnswers
              ) {
             if(answer.isRightAnswer()) toReturn++;
         }
         return toReturn;
     }
 
+    /**
+     * @return the Type or mQuestionType
+     * this is the helper method for constructor
+     */
+    private int setupType() {
+        int rightAnswers = 0;
+        for (Answer answer : mAnswers
+                ) {
+            if (answer.isRightAnswer()) {
+                rightAnswers++;
+            }
+        }
+        if (rightAnswers > 1) {
+            return CHECKBOX_QUESTION;
+        } else if (mAnswers.size() > 1) {
+            return RADIO_QUESTION;
+        } else return STRING_QUESTION;
+    }
 
 }
