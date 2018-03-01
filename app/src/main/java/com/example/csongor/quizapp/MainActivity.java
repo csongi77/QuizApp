@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // assigning buttons. Later it's easier to use these variable names
+        mRightButton = findViewById(R.id.right_button);
+        mLeftButton = findViewById(R.id.left_button);
 
         // set up default game state
-        if(mGameState ==null) {
+        if (mGameState == null) {
             mGameState = InGameState.getInstance(this);
+            mLeftButton.setEnabled(false);
         }
         // loading question list and the iterator for it
         mQuestions = getQuizQuestions();
@@ -49,11 +54,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-        // assigning buttons. Later it's easier to use these variable names
-        mRightButton = findViewById(R.id.right_button);
-        mLeftButton = findViewById(R.id.left_button);
-        mLeftButton.setEnabled(false);
 
         // setting up listeners to buttons
         mRightButton.setOnClickListener(v -> {
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // alert dialog declaration if it's not end game state...
-        if (mGameState.getClass()!=EvaluationState.class) {
+        if (mGameState.getClass() != EvaluationState.class) {
             mAlertDialogBuilder = new AlertDialog.Builder(this);
             mAlertDialog = mAlertDialogBuilder.setTitle(R.string.exit_header)
                     .setMessage(R.string.exit_alert)
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * Getters and setters for private fields
      */
     public Iterator<QuizQuestion> getQuestionIterator() {
@@ -139,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
     public void evaluate() {
         Toast.makeText(this, getResources().getString(R.string.your_points) + this.mGamePoints, Toast.LENGTH_SHORT).show();
         mCurrentFragment = EvaluationFragment.newInstance(mGamePoints, mMaxPoints, mPlayerName);
-        mFragmentManager.beginTransaction().replace(R.id.fragment_container, mCurrentFragment).commitNow();
+        mFragmentManager.beginTransaction().
+                replace(R.id.fragment_container, mCurrentFragment).
+                commitNow();
     }
 
     /**
@@ -152,15 +153,15 @@ public class MainActivity extends AppCompatActivity {
 
         // first question (String question)
         // image By Photo: chil, on Camptocamp.orgDerivative work:Zacharie Grossen - Camptocamp.org, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=16791896
-        QuizQuestion question_1=QuizQuestionBuilder.getsInstance()
+        QuizQuestion question_1 = QuizQuestionBuilder.getsInstance()
                 .addImageResourceId(R.drawable.matterhorn)
                 .addQuestionText("Who climbed first the Matterhorn?")
-                .addAnswer("Edward Whymper",true)
+                .addAnswer("Edward Whymper", true)
                 .build();
 
         // second question (Radio question)
         // image By Mike Murphy, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=295635
-        QuizQuestion question_2=QuizQuestionBuilder.getsInstance()
+        QuizQuestion question_2 = QuizQuestionBuilder.getsInstance()
                 .addImageResourceId(R.drawable.elcap)
                 .addQuestionText("What is the name of Yosemite's favourite granite Monolith?")
                 .addAnswer("El Capitan", true)
@@ -171,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
         //third question
         //By Uwe Gille (talk · contribs) - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=121222
-        QuizQuestion question_3=QuizQuestionBuilder.getsInstance()
+        QuizQuestion question_3 = QuizQuestionBuilder.getsInstance()
                 .addImageResourceId(R.drawable.everest)
                 .addQuestionText("Who climbed first time the Mount Everest?")
                 .addAnswer("Tenzing Norgay", true)
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
         //fourth question
         // By Guilhem Vellut from Paris - Glacier, CC BY-SA 2.0, https://commons.wikimedia.org/w/index.php?curid=4685304
-        QuizQuestion question_4=QuizQuestionBuilder.getsInstance()
+        QuizQuestion question_4 = QuizQuestionBuilder.getsInstance()
                 .addImageResourceId(R.drawable.eight_thousanders)
                 .addQuestionText("Where areas can you find the Eight Thousanders (summits greater than 8000 meters peek)?")
                 .addAnswer("Andes", false)
@@ -193,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
 
         // fifth question (Radio question)
         //By Tahsin Anwar Ali - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=40616492
-        QuizQuestion question_5=QuizQuestionBuilder.getsInstance()
+        QuizQuestion question_5 = QuizQuestionBuilder.getsInstance()
                 .addImageResourceId(R.drawable.nanga_parbat)
                 .addQuestionText("The first ascent of Nanga Parbat in 1953 is achieved in solo! Who did it?")
                 .addAnswer("Heinrich Harrer", false)

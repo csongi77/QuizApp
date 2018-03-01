@@ -47,7 +47,7 @@ public class WelcomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView =inflater.inflate(R.layout.string_question_fragment,container,false);
+        mRootView = inflater.inflate(R.layout.string_question_fragment, container, false);
         // assigning variable namest to views
         mWelcomeText = mRootView.findViewById(R.id.string_question_text);
         mImageView = mRootView.findViewById(R.id.string_question_image_container);
@@ -55,11 +55,11 @@ public class WelcomeFragment extends Fragment {
         // setting up appropriate text and image
         mPlayerNameText.setHint(R.string.name_hint);
         mWelcomeText.setText(R.string.welcome_title);
-        Drawable image= getActivity().getDrawable(R.drawable.p1020310);
+        Drawable image = getActivity().getDrawable(R.drawable.p1020310);
         mImageView.setImageDrawable(image);
         // scroll down if in order to get all text visible
-        ScrollView scroll=(ScrollView) mRootView.findViewById(R.id.string_scroll_container);
-        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
+        ScrollView scroll = (ScrollView) mRootView.findViewById(R.id.string_scroll_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN), 150L);
         return mRootView;
     }
 
@@ -73,7 +73,7 @@ public class WelcomeFragment extends Fragment {
         super.onPause();
         // setting player name at MainActivity
         mPlayerName = mPlayerNameText.getText().toString();
-        mRootView =null;
-        ((MainActivity)getActivity()).setPlayerName(mPlayerName);
+        mRootView = null;
+        ((MainActivity) getActivity()).setPlayerName(mPlayerName);
     }
 }

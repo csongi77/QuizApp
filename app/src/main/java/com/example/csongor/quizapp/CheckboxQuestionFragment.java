@@ -23,13 +23,14 @@ import java.util.ArrayList;
  */
 
 public class CheckboxQuestionFragment extends Fragment {
-    private static final String BUNDLE_QUESTION ="BUNDLE_QUESTION";
+    private static final String BUNDLE_QUESTION = "BUNDLE_QUESTION";
     private int mAnswerPoints;
     private QuizQuestion mQuestion;
     private View mRootView;
     private TextView mQuestionText;
     private ImageView mImageView;
     private ArrayList<CheckBox> mCheckBoxes = new ArrayList<CheckBox>();
+    private boolean mHasAlreadyEvaluated;
 
     //creating fragment with QuizQuestion argument
     public static CheckboxQuestionFragment newInstance(QuizQuestion quizQuestion) {
@@ -39,7 +40,6 @@ public class CheckboxQuestionFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
 
     /**
@@ -52,6 +52,7 @@ public class CheckboxQuestionFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mAnswerPoints = 0;
+        mHasAlreadyEvaluated=false;
     }
 
 
@@ -97,28 +98,31 @@ public class CheckboxQuestionFragment extends Fragment {
         mRootView.clearFocus();
 
         // hiding virtual keyboard, if it was active due to StringQuestionFragment
-        InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(mRootView.getWindowToken(),0);
-       ScrollView scroll= mRootView.findViewById(R.id.checkbox_scroll_container);
-       scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
+        InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(mRootView.getWindowToken(), 0);
+        ScrollView scroll = mRootView.findViewById(R.id.checkbox_scroll_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN), 150L);
         return mRootView;
     }
 
     @Override
     public void onStop() {
-        /** Checking right answer. The loop goes through the checked buttons and the answer list.
-         * If both are true (mCheckBoxes.get(i) and answerOptions.get(i)) than the result is also true.
-         * If player chosen all good answers, they gets the point
-         */
-        for (int i = 0; i < mCheckBoxes.size(); i++) {
-            if (mCheckBoxes.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
-                mAnswerPoints++;
-            }/* else if (mCheckBoxes.get(i).isChecked() && !(mQuestion.getAnswers().get(i).isRightAnswer())) {
+        if(!mHasAlreadyEvaluated) {
+            /** Checking right answer. The loop goes through the checked buttons and the answer list.
+             * If both are true (mCheckBoxes.get(i) and answerOptions.get(i)) than the result is also true.
+             * If player chosen all good answers, they gets the point
+             */
+            for (int i = 0; i < mCheckBoxes.size(); i++) {
+                if (mCheckBoxes.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
+                    mAnswerPoints++;
+                }/* else if (mCheckBoxes.get(i).isChecked() && !(mQuestion.getAnswers().get(i).isRightAnswer())) {
                 mAnswerPoints--;
             }*/
+            }
+            if (mAnswerPoints == mQuestion.getRightAnswerNumber())
+                ((MainActivity) getActivity()).addPoints(1);
+            mHasAlreadyEvaluated=true;
         }
-        if (mAnswerPoints == mQuestion.getRightAnswerNumber())
-            ((MainActivity) getActivity()).addPoints(1);
         super.onStop();
     }
 

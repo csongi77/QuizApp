@@ -92,7 +92,7 @@ public class EvaluationFragment extends Fragment {
     private void evaluateGame() {
         // formatting result
         String resultToDisplay = String.format("%.2f", (mAnswerPoints / (double) mMaxPoints) * 100);
-        String titleToDisplay = String.format(getResources().getString(R.string.evaluation_title), mPlayerName, mAnswerPoints, mMaxPoints,resultToDisplay);
+        String titleToDisplay = String.format(getResources().getString(R.string.evaluation_title), mPlayerName, mAnswerPoints, mMaxPoints, resultToDisplay);
         mTitleText.setText(titleToDisplay);
         mImageView.setImageDrawable(getActivity().getDrawable(R.drawable.eight_thousanders));
         double result = mAnswerPoints / (double) mMaxPoints * 100;

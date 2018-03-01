@@ -29,6 +29,7 @@ public class RadioQuestionFragment extends Fragment {
     private TextView mQuestionText;
     private ImageView mImageView;
     private ArrayList<RadioButton> mRadioButtons = new ArrayList<RadioButton>();
+    private boolean mHasAlreadyEvaluated;
 
     //creating fragment with QuizQuestion argument
     public static RadioQuestionFragment newInstance(QuizQuestion quizQuestion) {
@@ -49,7 +50,7 @@ public class RadioQuestionFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mAnswerPoints = 0;
-
+        mHasAlreadyEvaluated=false;
     }
 
 
@@ -88,31 +89,34 @@ public class RadioQuestionFragment extends Fragment {
         // displaying texts and images
         mQuestionText.setText(mQuestion.getQuestion());
         Drawable image = getActivity().getDrawable(mQuestion.getImageResourceId());
-        for (int i = 0; i< mRadioButtons.size(); i++){
+        for (int i = 0; i < mRadioButtons.size(); i++) {
             mRadioButtons.get(i).setText(mQuestion.getAnswers().get(i).getAnswerText());
         }
         mImageView.setImageDrawable(image);
         // hiding virtual keyboard, if it was active due to StringQuestionFragment - idea from StackOverflow
-        InputMethodManager im=(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        im.hideSoftInputFromWindow(mRootView.getWindowToken(),0);
-        ScrollView scroll= mRootView.findViewById(R.id.radio_scroll_container);
-        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN),150L);
+        InputMethodManager im = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        im.hideSoftInputFromWindow(mRootView.getWindowToken(), 0);
+        ScrollView scroll = mRootView.findViewById(R.id.radio_scroll_container);
+        scroll.postDelayed(() -> scroll.fullScroll(View.FOCUS_DOWN), 150L);
         return mRootView;
     }
 
 
     @Override
     public void onStop() {
-        // checking right answer. The loop goes through the checked buttons and the answer list.
-        // if both is true (buttons[i] and answerOptions.get(i)) than the result is also true.
-        // in this, and only this case answer points raises by 1. Because only one right answer is
-        // possible, it returns only 1 point for the right answered mQuestion
-        for (int i = 0; i < mRadioButtons.size(); i++) {
-            if (mRadioButtons.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
-                mAnswerPoints++;
+        if(!mHasAlreadyEvaluated) {
+            // checking right answer. The loop goes through the checked buttons and the answer list.
+            // if both is true (buttons[i] and answerOptions.get(i)) than the result is also true.
+            // in this, and only this case answer points raises by 1. Because only one right answer is
+            // possible, it returns only 1 point for the right answered mQuestion
+            for (int i = 0; i < mRadioButtons.size(); i++) {
+                if (mRadioButtons.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
+                    mAnswerPoints++;
+                }
             }
+            ((MainActivity) getActivity()).addPoints(mAnswerPoints);
+            mHasAlreadyEvaluated=true;
         }
-        ((MainActivity) getActivity()).addPoints(mAnswerPoints);
         mRootView = null;
         super.onStop();
     }

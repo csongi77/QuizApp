@@ -30,7 +30,7 @@ class EvaluationState implements GameState {
 
     static EvaluationState getInstance(MainActivity activity) {
         // setting up variables
-        sMainActivity =activity;
+        sMainActivity = activity;
         sLeftButton = sMainActivity.findViewById(R.id.left_button);
         sRightButton = sMainActivity.findViewById(R.id.right_button);
         sFragmentManager = sMainActivity.getSupportFragmentManager();
@@ -47,13 +47,13 @@ class EvaluationState implements GameState {
     public void doRightButtonAction() {
 
         // Creating simple share intent with action chooser
-        String mToPut=String.format(sMainActivity.getResources().getString(R.string.publish_my_result), sMainActivity.getGamePoints(), sMainActivity.getMaxPoints(), sMainActivity.getPlayerName());
-        String mSubject=sMainActivity.getResources().getString(R.string.send_subject);
-        Intent shareIntent=new Intent();
+        String mToPut = String.format(sMainActivity.getResources().getString(R.string.publish_my_result), sMainActivity.getGamePoints(), sMainActivity.getMaxPoints(), sMainActivity.getPlayerName());
+        String mSubject = sMainActivity.getResources().getString(R.string.send_subject);
+        Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT,mSubject);
-        shareIntent.putExtra(Intent.EXTRA_TEXT,mToPut);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, mSubject);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, mToPut);
         sMainActivity.startActivity(Intent.createChooser(shareIntent, sMainActivity.getResources().getString(R.string.publish)));
     }
 
@@ -63,11 +63,11 @@ class EvaluationState implements GameState {
     @Override
     public void doLeftButtonAction() {
         // restarting the game - method I took was described on StackOverflow
-        Context context= sMainActivity;
+        Context context = sMainActivity;
         Intent mStartActivity = new Intent(context, MainActivity.class);
         int mPendingIntentId = 123456;
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId,    mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
         System.exit(0);
     }
