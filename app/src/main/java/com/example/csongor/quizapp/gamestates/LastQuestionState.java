@@ -1,14 +1,17 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.gamestates;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.TextView;
 
+import com.example.csongor.quizapp.MainActivity;
+import com.example.csongor.quizapp.R;
+
 /**
  * Created by csongor on 2/2/18.
  */
 
-class LastQuestionState implements GameState {
+public class LastQuestionState implements GameState {
     // declaring variables
     private static final LastQuestionState LAST_QUESTION_STATE_INSTANCE = new LastQuestionState();
     private static MainActivity sMainActivity;

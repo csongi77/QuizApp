@@ -1,26 +1,22 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.gamestates;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URI;
+import com.example.csongor.quizapp.MainActivity;
+import com.example.csongor.quizapp.R;
 
 /**
  * Created by csongor on 2/2/18.
  * In this state users can restart game or publish their results
  */
 
-class EvaluationState implements GameState {
+public class EvaluationState implements GameState {
     private static final EvaluationState EVALUATION_STATE_INSTANCE = new EvaluationState();
     //declaring variables
     private static MainActivity sMainActivity;

@@ -1,4 +1,4 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.gamestates;
 
 /**
  * Created by csongor on 2/2/18.

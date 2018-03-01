@@ -1,4 +1,4 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,6 +14,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.example.csongor.quizapp.MainActivity;
+import com.example.csongor.quizapp.R;
+import com.example.csongor.quizapp.questionhelper.QuizQuestion;
 
 /**
  * Created by csongor on 1/22/18.

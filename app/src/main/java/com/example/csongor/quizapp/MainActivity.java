@@ -7,6 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.csongor.quizapp.fragments.EvaluationFragment;
+import com.example.csongor.quizapp.fragments.WelcomeFragment;
+import com.example.csongor.quizapp.gamestates.EvaluationState;
+import com.example.csongor.quizapp.gamestates.GameState;
+import com.example.csongor.quizapp.gamestates.InGameState;
+import com.example.csongor.quizapp.questionhelper.QuizQuestion;
+import com.example.csongor.quizapp.questionhelper.QuizQuestionBuilder;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

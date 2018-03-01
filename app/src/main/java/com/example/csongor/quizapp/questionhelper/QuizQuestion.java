@@ -1,4 +1,6 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.questionhelper;
+
+import com.example.csongor.quizapp.questionhelper.Answer;
 
 import java.io.Serializable;
 import java.util.List;

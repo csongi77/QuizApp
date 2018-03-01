@@ -1,15 +1,22 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.gamestates;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTransaction;
 
+import com.example.csongor.quizapp.fragments.CheckboxQuestionFragment;
+import com.example.csongor.quizapp.MainActivity;
+import com.example.csongor.quizapp.questionhelper.QuizQuestion;
+import com.example.csongor.quizapp.R;
+import com.example.csongor.quizapp.fragments.RadioQuestionFragment;
+import com.example.csongor.quizapp.fragments.StringQuestionFragment;
+
 /**
  * Created by csongor on 2/2/18.
  */
 
-class InGameState implements GameState {
+public class InGameState implements GameState {
     // declaring variables
     private static final InGameState IN_GAME_STATE_INSTANCE = new InGameState();
     private static MainActivity sMainActivity;

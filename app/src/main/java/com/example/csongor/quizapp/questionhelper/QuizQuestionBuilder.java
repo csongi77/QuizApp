@@ -1,4 +1,4 @@
-package com.example.csongor.quizapp;
+package com.example.csongor.quizapp.questionhelper;
 
 import java.util.ArrayList;
 import java.util.List;
