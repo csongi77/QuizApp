@@ -24,11 +24,11 @@ public class EvaluationState implements GameState {
     private static FragmentManager sFragmentManager;
     private static Fragment sFragment;
 
-    static EvaluationState getInstance(MainActivity activity) {
+    public static EvaluationState getInstance(MainActivity activity) {
         // setting up variables
         sMainActivity = activity;
-        sLeftButton = sMainActivity.findViewById(R.id.left_button);
-        sRightButton = sMainActivity.findViewById(R.id.right_button);
+        sLeftButton = sMainActivity.findViewById(R.id.btn_left);
+        sRightButton = sMainActivity.findViewById(R.id.btn_right);
         sFragmentManager = sMainActivity.getSupportFragmentManager();
         return EVALUATION_STATE_INSTANCE;
     }

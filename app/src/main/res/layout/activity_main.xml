@@ -33,7 +33,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/left_button"
+                android:id="@+id/btn_left"
                 style="@style/main_activity_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -41,7 +41,7 @@
                 android:text="@string/evaluation" />
 
             <TextView
-                android:id="@+id/right_button"
+                android:id="@+id/btn_right"
                 style="@style/main_activity_button"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

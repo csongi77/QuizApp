@@ -25,11 +25,11 @@ public class InGameState implements GameState {
     private static FragmentTransaction sTransaction;
     private static Fragment sFragment;
 
-    static InGameState getInstance(MainActivity activity) {
+    public static InGameState getInstance(MainActivity activity) {
         // setting up variables
         sMainActivity =activity;
-        sLeftButton = sMainActivity.findViewById(R.id.left_button);
-        sRightButton = sMainActivity.findViewById(R.id.right_button);
+        sLeftButton = sMainActivity.findViewById(R.id.btn_left);
+        sRightButton = sMainActivity.findViewById(R.id.btn_right);
         sFragmentManager = sMainActivity.getSupportFragmentManager();
         return IN_GAME_STATE_INSTANCE;
     }

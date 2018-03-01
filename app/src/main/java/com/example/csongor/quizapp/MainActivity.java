@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // assigning buttons. Later it's easier to use these variable names
-        mRightButton = findViewById(R.id.right_button);
-        mLeftButton = findViewById(R.id.left_button);
+        mRightButton = findViewById(R.id.btn_right);
+        mLeftButton = findViewById(R.id.btn_left);
 
         // set up default game state
         if (mGameState == null) {

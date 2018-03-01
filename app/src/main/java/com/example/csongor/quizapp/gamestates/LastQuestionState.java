@@ -19,11 +19,11 @@ public class LastQuestionState implements GameState {
     private static FragmentManager sFragmentManager;
     private static Fragment sFragment;
 
-    static LastQuestionState getInstance(MainActivity activity) {
+    public static LastQuestionState getInstance(MainActivity activity) {
         // initializing variables
         sMainActivity =activity;
-        sLeftButton = sMainActivity.findViewById(R.id.left_button);
-        sRightButton = sMainActivity.findViewById(R.id.right_button);
+        sLeftButton = sMainActivity.findViewById(R.id.btn_left);
+        sRightButton = sMainActivity.findViewById(R.id.btn_right);
         sFragmentManager = sMainActivity.getSupportFragmentManager();
         return LAST_QUESTION_STATE_INSTANCE;
     }
