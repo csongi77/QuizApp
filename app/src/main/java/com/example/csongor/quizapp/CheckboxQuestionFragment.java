@@ -115,9 +115,7 @@ public class CheckboxQuestionFragment extends Fragment {
             for (int i = 0; i < mCheckBoxes.size(); i++) {
                 if (mCheckBoxes.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
                     mAnswerPoints++;
-                }/* else if (mCheckBoxes.get(i).isChecked() && !(mQuestion.getAnswers().get(i).isRightAnswer())) {
-                mAnswerPoints--;
-            }*/
+                }
             }
             if (mAnswerPoints == mQuestion.getRightAnswerNumber())
                 ((MainActivity) getActivity()).addPoints(1);
