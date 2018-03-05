@@ -119,6 +119,11 @@ public class CheckboxQuestionFragment extends Fragment {
             for (int i = 0; i < mCheckBoxes.size(); i++) {
                 if (mCheckBoxes.get(i).isChecked() & mQuestion.getAnswers().get(i).isRightAnswer()) {
                     mAnswerPoints++;
+                    /**
+                     * corrected
+                     */
+                } else if (mCheckBoxes.get(i).isChecked() && !mQuestion.getAnswers().get(i).isRightAnswer()) {
+                    mAnswerPoints--;
                 }
             }
             if (mAnswerPoints == mQuestion.getRightAnswerNumber())
@@ -128,7 +133,7 @@ public class CheckboxQuestionFragment extends Fragment {
         super.onStop();
     }
 
-    // helper method for getting Bundle argumennts
+    // helper method for getting Bundle arguments
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
             mQuestion = (QuizQuestion) bundle.get(BUNDLE_QUESTION);
