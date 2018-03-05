@@ -21,12 +21,10 @@ import com.example.csongor.quizapp.R;
  */
 
 public class WelcomeFragment extends Fragment {
-    // field for player's name
-    private String mPlayerName;
-    TextView mWelcomeText;
-    ImageView mImageView;
-    EditText mPlayerNameText;
-    View mRootView;
+    private TextView mWelcomeText;
+    private ImageView mImageView;
+    private EditText mPlayerNameText;
+    private View mRootView;
 
 
     /**
@@ -75,7 +73,7 @@ public class WelcomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         // setting player name at MainActivity
-        mPlayerName = mPlayerNameText.getText().toString();
+        String mPlayerName = mPlayerNameText.getText().toString();
         mRootView = null;
         ((MainActivity) getActivity()).setPlayerName(mPlayerName);
     }
