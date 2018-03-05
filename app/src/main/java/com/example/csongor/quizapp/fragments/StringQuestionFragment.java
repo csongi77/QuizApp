@@ -110,12 +110,12 @@ public class StringQuestionFragment extends Fragment {
     @Override
     public void onStop() {
         if(!mHasAlreadyEvaluated) {
-            mPlayerAnswer = (mAnswerText.getEditableText().toString().toLowerCase());
+            mPlayerAnswer = (mAnswerText.getEditableText().toString().trim());
             mRootView = null;
             /**
              * Checking the answer. If the string answer is the same then the player gets 1 point
              */
-            if (mPlayerAnswer.equals(mQuestion.getAnswers().get(0).getAnswerText().toLowerCase())) {
+            if (mPlayerAnswer.equalsIgnoreCase(mQuestion.getAnswers().get(0).getAnswerText())) {
                 mAnswerPoints = 1;
                 ((MainActivity) getActivity()).addPoints(mAnswerPoints);
             }
